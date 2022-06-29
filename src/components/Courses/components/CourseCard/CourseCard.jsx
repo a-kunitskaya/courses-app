@@ -2,16 +2,12 @@ import { Button } from '../../../../common/Button/Button';
 import { LOCALES, SHOW_COURSE_BTN_TXT } from '../../../../constants';
 import getCourseDuration from '../../../../helpers/getCourseDuration';
 import formatCreationDate from '../../../../helpers/formatCreationDate';
-import { mockedAuthorsList } from '../../../../helpers/getMockedData';
-
-function formatAuthors(authors) {
-	return authors
-		.map((author) => mockedAuthorsList.find(({ id }) => id === author).name)
-		.join(', ');
-}
-function CourseCard({ course }) {
+function CourseCard({ course, authorsList }) {
 	const { title, description, authors, duration, creationDate } = course;
-	const authorsFormatted = formatAuthors(authors);
+
+	const authorsFormatted = authors
+		.map((author) => authorsList.find(({ id }) => id === author).name)
+		.join(', ');
 	const durationFormatted = getCourseDuration(duration);
 	const creationDateFormatted = formatCreationDate(creationDate, LOCALES.pl);
 

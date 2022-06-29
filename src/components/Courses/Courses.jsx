@@ -1,19 +1,27 @@
 import CourseCard from '../Courses/components/CourseCard/CourseCard';
-import { mockedCoursesList } from '../../helpers/getMockedData';
+import SearchBar from './components/SearchBar/SearchBar';
+import { Button } from '../../common/Button/Button';
 
-const courseCards = mockedCoursesList.map((course) => {
-	console.log(course);
-	return (
-		<li>
-			<CourseCard course={course} />
-		</li>
-	);
-});
+import { ADD_NEW_COURSE_BTN_TXT } from '../../constants';
 
-function Courses() {
+const getCourseCards = ({ coursesList, authorsList }) =>
+	coursesList.map((course) => {
+		return (
+			<li key={course.id}>
+				<CourseCard course={course} authorsList={authorsList} />
+			</li>
+		);
+	});
+
+function Courses(props) {
+	const { coursesList, authorsList } = props;
 	return (
 		<div>
-			<ul>{courseCards}</ul>
+			<div>
+				<SearchBar coursesList={coursesList} authorsList={authorsList} />
+				<Button text={ADD_NEW_COURSE_BTN_TXT} onClick={() => {}} />
+			</div>
+			<ul>{getCourseCards({ coursesList, authorsList })}</ul>
 		</div>
 	);
 }

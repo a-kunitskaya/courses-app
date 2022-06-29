@@ -1,23 +1,16 @@
-export const Input = ({
+export const Textarea = ({
 	labelText,
 	placeholderText,
 	onChange,
-	minLength,
-	type = 'text',
-	min,
-	value,
+	minlength,
 }) => (
 	<form>
 		<label>
 			{labelText}
-			<input
-				type={type}
-				name='name'
+			<textarea
+				minLength={minlength}
 				placeholder={placeholderText}
 				onChange={onChange}
-				minLength={minLength}
-				min={min}
-				value={value}
 			/>
 		</label>
 	</form>

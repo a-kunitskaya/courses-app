@@ -1,5 +1,4 @@
 function getCourseDuration(mins) {
-	console.log(mins);
 	let h = Math.floor(mins / 60);
 	let m = mins % 60;
 	const word = h === 1 ? 'hour' : 'hours';
