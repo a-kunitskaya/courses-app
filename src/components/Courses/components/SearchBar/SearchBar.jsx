@@ -18,10 +18,14 @@ function SearchBar(props) {
 	const submitHandler = (event) => {
 		event.preventDefault();
 		const foundCourses = coursesList.filter(
-			(course) => course.id === searchInput || course.title === searchInput
+			(course) =>
+				course.id.toLowerCase().includes(searchInput.toLowerCase()) ||
+				course.title.toLowerCase().includes(searchInput.toLowerCase())
 		);
 
+		//pass data to parent
 		console.log('found courses: ', foundCourses);
+		props.onSearch(foundCourses);
 		setSearchInput('');
 	};
 	return (

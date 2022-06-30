@@ -20,23 +20,59 @@ import {
 	DURATION_INPUT_PLACEHOLDER_TXT,
 } from '../../constants';
 import getCourseDuration from '../../helpers/getCourseDuration';
+import { useState } from 'react';
 
-const getAuthorItems = ({ authorsList, action }) =>
-	authorsList.map((author) => {
-		return (
-			<li key={author.id}>
-				<AuthorItem name={author.name} action={action} />
-			</li>
-		);
-	});
+const getAuthorItem = ({ author, action, onClick }) => {
+	return (
+		<li key={author.id}>
+			<AuthorItem name={author.name} action={action} onClick={onClick} />
+		</li>
+	);
+};
 
-const courseAuthorsList = [];
-function addAuthorHandler(props) {
-	const { author } = props;
-	courseAuthorsList.push(author);
-}
 function CreateCourse(props) {
 	const { authorsList } = props;
+	const [courseAuthors, setCourseAuthors] = useState([]);
+	const [availableAuthors, setAvailableAuthors] = useState(authorsList);
+	const [addAuthorInput, setAddAuthorInput] = useState('');
+	const [durationInput, setDurationInput] = useState('');
+
+	function addAuthorHandler(event) {
+		event.preventDefault();
+		console.log('in add author handler', availableAuthors);
+		setAvailableAuthors((prevState) => [
+			...prevState,
+			{ name: addAuthorInput, id: Math.random() },
+		]);
+
+		console.log('in add author handler', availableAuthors);
+		setAddAuthorInput('');
+	}
+
+	function addAuthorInputHandler(event) {
+		console.log('in add author INPUT handler', event.target.value);
+		setAddAuthorInput(event.target.value);
+	}
+
+	function addCourseAuthorHandler(author) {
+		setCourseAuthors((prevState) => [author, ...prevState]);
+		setAvailableAuthors((prevState) =>
+			prevState.filter((item) => item.id !== author.id)
+		);
+	}
+
+	function deleteCourseAuthorHandler(author) {
+		setCourseAuthors((prevState) =>
+			prevState.filter((item) => item.id !== author.id)
+		);
+		setAvailableAuthors((prevState) => [author, ...prevState]);
+	}
+
+	function durationInputHandler(event) {
+		event.preventDefault();
+		setDurationInput(event.target.value);
+	}
+
 	return (
 		<div>
 			<Input
@@ -49,15 +85,16 @@ function CreateCourse(props) {
 				placeholderText={ADD_COURSE_DESCRIPTION_TEXTAREA_PLACEHOLDER_TXT}
 				minlength={ADD_COURSE_DESCRIPTION_MIN_CHARS_NUM}
 			/>
-			<div>
-				<h2>Add author</h2>
+			<form onSubmit={addAuthorHandler}>
 				<Input
 					labelText={ADD_AUTHOR_NAME_INPUT_LBL_TXT}
 					placeholderText={ADD_AUTHOR_NAME_INPUT_PLACEHOLDER_TXT}
 					minLength={ADD_AUTHOR_NAME_MIN_CHARS_NUM}
+					onChange={addAuthorInputHandler}
+					value={addAuthorInput}
 				/>
-				<Button text={CREATE_AUTHOR_NAME_BTN_TXT} onClick={addAuthorHandler} />
-			</div>
+				<Button type='submit' text={CREATE_AUTHOR_NAME_BTN_TXT} />
+			</form>
 			<div>
 				<h2>Duration</h2>
 				<Input
@@ -65,18 +102,35 @@ function CreateCourse(props) {
 					placeholderText={DURATION_INPUT_PLACEHOLDER_TXT}
 					type='number'
 					min={1}
+					onChange={durationInputHandler}
+					value={durationInput}
 				/>
-				<Button text={CREATE_AUTHOR_NAME_BTN_TXT} />
-				<h4>Duration: {getCourseDuration(123)}</h4>
+				<h4>Duration: {getCourseDuration(durationInput)}</h4>
 			</div>
 			<div>
 				<h2>Authors</h2>
-				<ul>{getAuthorItems({ authorsList, action: ACTIONS.ADD })}</ul>
+				<ul>
+					{availableAuthors.map((author) => {
+						return getAuthorItem({
+							author,
+							action: ACTIONS.ADD,
+							onClick: () => addCourseAuthorHandler(author),
+						});
+					})}
+				</ul>
 			</div>
 			<div>
 				<h2>Course authors</h2>
-				{!courseAuthorsList.length && <p>{AUTHOR_LIST_EMPTY_TXT}</p>}
-				<ul>{getAuthorItems({ authorsList, action: ACTIONS.DELETE })}</ul>
+				{!courseAuthors.length && <p>{AUTHOR_LIST_EMPTY_TXT}</p>}
+				<ul>
+					{courseAuthors.map((author) => {
+						return getAuthorItem({
+							author,
+							action: ACTIONS.DELETE,
+							onClick: () => deleteCourseAuthorHandler(author),
+						});
+					})}
+				</ul>
 			</div>
 		</div>
 	);
