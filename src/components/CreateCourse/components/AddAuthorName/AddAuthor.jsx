@@ -12,16 +12,16 @@ import {
 const AddAuthor = ({ onAddAuthor }) => {
 	const [addAuthorInput, setAddAuthorInput] = useState('');
 
-	function addAuthorHandler(event) {
+	const addAuthorHandler = (event) => {
 		event.preventDefault();
 		const author = { name: addAuthorInput, id: Math.random() };
 		onAddAuthor(author);
 		setAddAuthorInput('');
-	}
+	};
 
-	function addAuthorInputHandler(event) {
+	const addAuthorInputHandler = (event) => {
 		setAddAuthorInput(event.target.value);
-	}
+	};
 
 	return (
 		<form onSubmit={addAuthorHandler}>

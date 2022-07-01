@@ -6,7 +6,6 @@ const Input = ({
 	type = 'text',
 	min,
 	value,
-	required,
 }) => (
 	<form>
 		<label>

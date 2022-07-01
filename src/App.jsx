@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Header, Courses, CreateCourse } from './components';
 
-import { mockedCoursesList, mockedAuthorsList } from './helpers/getMockedData';
+import { mockedCoursesList, mockedAuthorsList } from './helpers';
 
 const RENDERING_OPS = {
 	CREATE_COURSE: true,

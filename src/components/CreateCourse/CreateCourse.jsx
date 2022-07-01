@@ -9,8 +9,7 @@ import {
 	CourseAuthors,
 } from './components';
 
-function CreateCourse(props) {
-	const { authorsList } = props;
+const CreateCourse = ({ authorsList }) => {
 	const [courseAuthors, setCourseAuthors] = useState([]);
 	const [availableAuthors, setAvailableAuthors] = useState(authorsList);
 
@@ -48,5 +47,5 @@ function CreateCourse(props) {
 			/>
 		</div>
 	);
-}
+};
 export default CreateCourse;

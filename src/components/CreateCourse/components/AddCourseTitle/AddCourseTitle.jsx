@@ -1,4 +1,5 @@
 import { Button, Input } from '../../../../common';
+
 import {
 	ADD_COURSE_TITLE_INPUT_LBL_TXT,
 	ADD_COURSE_TITLE_INPUT_PLACEHOLDER_TXT,
