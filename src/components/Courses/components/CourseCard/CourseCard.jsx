@@ -1,13 +1,17 @@
-import { Button } from '../../../../common/Button/Button';
-import { LOCALES, SHOW_COURSE_BTN_TXT } from '../../../../constants';
-import getCourseDuration from '../../../../helpers/getCourseDuration';
-import formatCreationDate from '../../../../helpers/formatCreationDate';
-function CourseCard({ course, authorsList }) {
-	const { title, description, authors, duration, creationDate } = course;
+import { Button } from '../../../../common';
 
-	const authorsFormatted = authors
-		.map((author) => authorsList.find(({ id }) => id === author).name)
-		.join(', ');
+import { LOCALES, SHOW_COURSE_BTN_TXT } from '../../../../constants';
+
+import {
+	getCourseDuration,
+	formatCreationDate,
+	getCourseAuthor,
+} from '../../../../helpers';
+
+const CourseCard = ({ course, authors }) => {
+	const { title, description, duration, creationDate } = course;
+
+	const authorsFormatted = getCourseAuthor({ course, authors }).join(', ');
 	const durationFormatted = getCourseDuration(duration);
 	const creationDateFormatted = formatCreationDate(creationDate, LOCALES.pl);
 
@@ -24,5 +28,5 @@ function CourseCard({ course, authorsList }) {
 			<Button text={SHOW_COURSE_BTN_TXT} />
 		</div>
 	);
-}
+};
 export default CourseCard;

@@ -1,47 +1,25 @@
-import CourseCard from '../Courses/components/CourseCard/CourseCard';
-import SearchBar from './components/SearchBar/SearchBar';
-import { Button } from '../../common/Button/Button';
-
-import { ADD_NEW_COURSE_BTN_TXT } from '../../constants';
 import { useState } from 'react';
 
-const getCourseCards = ({ coursesList, authorsList }) =>
-	coursesList.map((course) => {
-		return (
-			<li key={course.id}>
-				<CourseCard course={course} authorsList={authorsList} />
-			</li>
-		);
-	});
+import { CourseCardsList, SearchBar } from './components';
+import { Button } from '../../common';
 
-function Courses(props) {
-	const { coursesList, authorsList } = props;
+import { ADD_NEW_COURSE_BTN_TXT } from '../../constants';
+
+const Courses = ({ coursesList, authorsList, onCreateCourseBtnClick }) => {
 	const [courses, setCourses] = useState(coursesList);
 
 	const onSearchHandler = (foundCourses) => {
 		if (foundCourses.length) setCourses(foundCourses);
 	};
 
-	const onCreateCourseBtnClick = () => {
-		console.log('createCourse clicked');
-		props.onCreateCourseBtnClick(true);
-	};
+	const createCourseBtnHandler = () => onCreateCourseBtnClick(true);
 
 	return (
 		<div>
-			<div>
-				<SearchBar
-					coursesList={coursesList}
-					authorsList={authorsList}
-					onSearch={onSearchHandler}
-				/>
-				<Button
-					text={ADD_NEW_COURSE_BTN_TXT}
-					onClick={onCreateCourseBtnClick}
-				/>
-			</div>
-			<ul>{getCourseCards({ coursesList: courses, authorsList })}</ul>
+			<SearchBar coursesList={coursesList} onSearch={onSearchHandler} />
+			<Button text={ADD_NEW_COURSE_BTN_TXT} onClick={createCourseBtnHandler} />
+			<CourseCardsList courses={courses} authors={authorsList} />
 		</div>
 	);
-}
+};
 export default Courses;

@@ -1,31 +1,42 @@
-import Header from './components/Header/Header';
-import Courses from './components/Courses/Courses';
-
-import { mockedCoursesList, mockedAuthorsList } from './helpers/getMockedData';
-import CreateCourse from './components/CreateCourse/CreateCourse';
 import { useState } from 'react';
 
-function App() {
-	const [createCourseBtnClicked, setcreateCourseBtnClicked] = useState(false);
+import { Header, Courses, CreateCourse } from './components';
 
-	const onCreateCourseBtnClick = () => {
-		console.log('createCourse clicked');
-		setcreateCourseBtnClicked(true);
+import { mockedCoursesList, mockedAuthorsList } from './helpers/getMockedData';
+
+const RENDERING_OPS = {
+	CREATE_COURSE: true,
+	COURSE_CARDS: false,
+};
+
+function App() {
+	const [createCourseClicked, setCreateCourseClicked] = useState(false);
+
+	const renderConditionally = () => {
+		switch (createCourseClicked) {
+			case RENDERING_OPS.CREATE_COURSE:
+				return <CreateCourse authorsList={mockedAuthorsList} />;
+			case RENDERING_OPS.COURSE_CARDS:
+				return (
+					<Courses
+						onCreateCourseBtnClick={onCreateCourseBtnClicked}
+						coursesList={mockedCoursesList}
+						authorsList={mockedAuthorsList}
+					/>
+				);
+			default:
+				console.error('Error in conditional rendering');
+		}
+	};
+
+	const onCreateCourseBtnClicked = (isClicked) => {
+		setCreateCourseClicked(isClicked);
 	};
 
 	return (
 		<div>
 			<Header />
-
-			{createCourseBtnClicked ? (
-				<CreateCourse authorsList={mockedAuthorsList} />
-			) : (
-				<Courses
-					onCreateCourseBtnClick={onCreateCourseBtnClick}
-					coursesList={mockedCoursesList}
-					authorsList={mockedAuthorsList}
-				/>
-			)}
+			{renderConditionally()}
 		</div>
 	);
 }

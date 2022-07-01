@@ -1,3 +1,5 @@
-import logo from '../../../../assets/logo.png';
+import logoImg from '../../../../assets/logo.png';
 
-export const Logo = () => <img src={logo} alt='logo' />;
+const Logo = () => <img src={logoImg} alt='logo' />;
+
+export default Logo;

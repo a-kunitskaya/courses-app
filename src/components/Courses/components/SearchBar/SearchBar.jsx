@@ -1,19 +1,16 @@
-import { Input } from '../../../../common/Input/Input';
-import { Button } from '../../../../common/Button/Button';
+import { useState } from 'react';
+
+import { Input, Button } from '../../../../common';
 
 import {
 	SEARCH_BAR_BTN_TXT,
 	SEARCH_BAR_PLACEHOLDER_TXT,
 } from '../../../../constants';
-import { useState } from 'react';
 
-function SearchBar(props) {
-	const { coursesList, authorsList } = props;
+const SearchBar = ({ coursesList, onSearch }) => {
 	const [searchInput, setSearchInput] = useState('');
-	const searchHandler = (event) => {
-		console.log('in search hand;er', event.target.value);
-		setSearchInput(event.target.value);
-	};
+
+	const searchHandler = (event) => setSearchInput(event.target.value);
 
 	const submitHandler = (event) => {
 		event.preventDefault();
@@ -23,11 +20,10 @@ function SearchBar(props) {
 				course.title.toLowerCase().includes(searchInput.toLowerCase())
 		);
 
-		//pass data to parent
-		console.log('found courses: ', foundCourses);
-		props.onSearch(foundCourses);
+		onSearch(foundCourses);
 		setSearchInput('');
 	};
+
 	return (
 		<form onSubmit={submitHandler}>
 			<Input
@@ -38,6 +34,6 @@ function SearchBar(props) {
 			<Button type='submit' text={SEARCH_BAR_BTN_TXT} />
 		</form>
 	);
-}
+};
 
 export default SearchBar;

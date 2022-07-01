@@ -1,4 +1,4 @@
-export const Input = ({
+const Input = ({
 	labelText,
 	placeholderText,
 	onChange,
@@ -23,3 +23,5 @@ export const Input = ({
 		</label>
 	</form>
 );
+
+export default Input;

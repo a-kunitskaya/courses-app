@@ -1,9 +1,4 @@
-export const Textarea = ({
-	labelText,
-	placeholderText,
-	onChange,
-	minlength,
-}) => (
+const Textarea = ({ labelText, placeholderText, onChange, minlength }) => (
 	<form>
 		<label>
 			{labelText}
@@ -15,3 +10,5 @@ export const Textarea = ({
 		</label>
 	</form>
 );
+
+export default Textarea;
