@@ -1,3 +1,9 @@
-const Button = ({ text, onClick }) => <button onClick={onClick}>{text}</button>;
+import { Button } from 'react-bootstrap';
 
-export default Button;
+const btn = ({ text, onClick }) => (
+	<Button variant='outline-primary' onClick={onClick}>
+		{text}
+	</Button>
+);
+
+export default btn;

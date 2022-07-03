@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { useState } from 'react';
 import { Header, Courses, CreateCourse } from './components';
 
 import { mockedCoursesList, mockedAuthorsList } from './helpers';
