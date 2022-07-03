@@ -1,13 +1,14 @@
 import { CourseCard } from '../index';
+import { ListGroup } from 'react-bootstrap';
 
 const CourseCardsList = ({ courses, authors }) => (
-	<ul>
+	<ListGroup variant='flush'>
 		{courses.map((course) => (
-			<li key={course.id}>
+			<ListGroup.Item key={course.id}>
 				<CourseCard course={course} authors={authors} />
-			</li>
+			</ListGroup.Item>
 		))}
-	</ul>
+	</ListGroup>
 );
 
 export default CourseCardsList;
