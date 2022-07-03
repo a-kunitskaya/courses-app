@@ -7,6 +7,7 @@ import {
 	formatCreationDate,
 	getCourseAuthor,
 } from '../../../../helpers';
+import { Card, Col, Row } from 'react-bootstrap';
 
 const CourseCard = ({ course, authors }) => {
 	const { title, description, duration, creationDate } = course;
@@ -16,17 +17,28 @@ const CourseCard = ({ course, authors }) => {
 	const creationDateFormatted = formatCreationDate(creationDate, LOCALES.pl);
 
 	return (
-		<div>
-			<h2>{title}</h2>
-			<p>{description}</p>
-			<h3>Authors:</h3>
-			<p>{authorsFormatted}</p>
-			<h3>Duration:</h3>
-			<p>{durationFormatted}</p>
-			<h3>Created:</h3>
-			<p>{creationDateFormatted}</p>
-			<Button text={SHOW_COURSE_BTN_TXT} />
-		</div>
+		<Card border='success' className='my-4'>
+			<Card.Body>
+				<Row>
+					<Col>
+						<Card.Title className='display-6 fw-bold'>{title}</Card.Title>
+						<Card.Text>{description}</Card.Text>
+					</Col>
+					<Col>
+						<Card.Text>
+							<span className='fw-bold'>Authors</span>: {authorsFormatted}
+						</Card.Text>
+						<Card.Text>
+							<span className='fw-bold'>Duration</span>: {durationFormatted}
+						</Card.Text>
+						<Card.Text>
+							<span className='fw-bold'>Created</span>: {creationDateFormatted}
+						</Card.Text>
+						<Button text={SHOW_COURSE_BTN_TXT} />
+					</Col>
+				</Row>
+			</Card.Body>
+		</Card>
 	);
 };
 export default CourseCard;
