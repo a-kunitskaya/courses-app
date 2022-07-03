@@ -6,6 +6,7 @@ import {
 	SEARCH_BAR_BTN_TXT,
 	SEARCH_BAR_PLACEHOLDER_TXT,
 } from '../../../../constants';
+import { Form, Row } from 'react-bootstrap';
 
 const SearchBar = ({ coursesList, onSearch }) => {
 	const [searchInput, setSearchInput] = useState('');
@@ -25,14 +26,17 @@ const SearchBar = ({ coursesList, onSearch }) => {
 	};
 
 	return (
-		<form onSubmit={submitHandler}>
-			<Input
-				placeholderText={SEARCH_BAR_PLACEHOLDER_TXT}
-				onChange={searchHandler}
-				value={searchInput}
-			/>
-			<Button type='submit' text={SEARCH_BAR_BTN_TXT} />
-		</form>
+		<Form onSubmit={submitHandler} className='m-3'>
+			<Form.Group className='d-inline-flex'>
+				<Input
+					placeholderText={SEARCH_BAR_PLACEHOLDER_TXT}
+					onChange={searchHandler}
+					value={searchInput}
+					className='border border-warning form-control-lg'
+				/>
+				<Button type='submit' text={SEARCH_BAR_BTN_TXT} />
+			</Form.Group>
+		</Form>
 	);
 };
 

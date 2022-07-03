@@ -1,3 +1,5 @@
+import { Form } from 'react-bootstrap';
+
 const Input = ({
 	labelText,
 	placeholderText,
@@ -6,21 +8,22 @@ const Input = ({
 	type = 'text',
 	min,
 	value,
+	required = true,
+	className,
 }) => (
-	<form>
-		<label>
-			{labelText}
-			<input
-				type={type}
-				name='name'
-				placeholder={placeholderText}
-				onChange={onChange}
-				minLength={minLength}
-				min={min}
-				value={value}
-			/>
-		</label>
-	</form>
+	<>
+		<Form.Label>{labelText}</Form.Label>
+		<Form.Control
+			type={type}
+			placeholder={placeholderText}
+			onChange={onChange}
+			minLength={minLength}
+			min={min}
+			value={value}
+			required={required}
+			className={className}
+		/>
+	</>
 );
 
 export default Input;

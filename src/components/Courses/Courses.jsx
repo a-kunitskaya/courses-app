@@ -4,6 +4,7 @@ import { CourseCardsList, SearchBar } from './components';
 import { Button } from '../../common';
 
 import { ADD_NEW_COURSE_BTN_TXT } from '../../constants';
+import { Container, Stack } from 'react-bootstrap';
 
 const Courses = ({ coursesList, authorsList, onCreateCourseBtnClick }) => {
 	const [courses, setCourses] = useState(coursesList);
@@ -15,11 +16,18 @@ const Courses = ({ coursesList, authorsList, onCreateCourseBtnClick }) => {
 	const createCourseBtnHandler = () => onCreateCourseBtnClick(true);
 
 	return (
-		<div>
-			<SearchBar coursesList={coursesList} onSearch={onSearchHandler} />
-			<Button text={ADD_NEW_COURSE_BTN_TXT} onClick={createCourseBtnHandler} />
+		<Container className='border border-primary'>
+			<Stack direction='horizontal' gap={3}>
+				<SearchBar coursesList={coursesList} onSearch={onSearchHandler} />
+				<div className='ms-auto'>
+					<Button
+						text={ADD_NEW_COURSE_BTN_TXT}
+						onClick={createCourseBtnHandler}
+					/>
+				</div>
+			</Stack>
 			<CourseCardsList courses={courses} authors={authorsList} />
-		</div>
+		</Container>
 	);
 };
 export default Courses;
