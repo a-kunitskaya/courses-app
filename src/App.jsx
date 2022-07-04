@@ -1,9 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { useState } from 'react';
-import { Header, Courses, CreateCourse } from './components';
+import { Courses, CreateCourse, Header } from './components';
 
-import { mockedCoursesList, mockedAuthorsList } from './helpers';
+import { mockedAuthorsList, mockedCoursesList } from './helpers';
 import { Container } from 'react-bootstrap';
 
 const RENDERING_OPS = {

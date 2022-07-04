@@ -3,9 +3,9 @@ import { Button } from '../../../../common';
 import { LOCALES, SHOW_COURSE_BTN_TXT } from '../../../../constants';
 
 import {
-	getCourseDuration,
 	formatCreationDate,
 	getCourseAuthor,
+	getCourseDuration,
 } from '../../../../helpers';
 import { Card, Col, Row } from 'react-bootstrap';
 

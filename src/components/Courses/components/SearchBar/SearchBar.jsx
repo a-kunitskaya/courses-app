@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
-import { Input, Button } from '../../../../common';
+import { Button, Input } from '../../../../common';
 
 import {
 	SEARCH_BAR_BTN_TXT,
 	SEARCH_BAR_PLACEHOLDER_TXT,
 } from '../../../../constants';
-import { Form, Row } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 const SearchBar = ({ coursesList, onSearch }) => {
 	const [searchInput, setSearchInput] = useState('');

@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
 import {
-	AddCourseTitle,
-	AddCourseDescription,
 	AddAuthor,
+	AddCourseDescription,
 	AddCourseDuration,
+	AddCourseTitle,
 	AvailableAuthors,
 	CourseAuthors,
 } from './components';
-import { Card, Col, Container, Row, Stack } from 'react-bootstrap';
+import { Card, Col, Container, Row } from 'react-bootstrap';
 
 const CreateCourse = ({ authorsList }) => {
 	const [courseAuthors, setCourseAuthors] = useState([]);

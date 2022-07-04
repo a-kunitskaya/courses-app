@@ -4,7 +4,7 @@ import { CourseCardsList, SearchBar } from './components';
 import { Button } from '../../common';
 
 import { ADD_NEW_COURSE_BTN_TXT } from '../../constants';
-import { Container, Stack } from 'react-bootstrap';
+import { Stack } from 'react-bootstrap';
 
 const Courses = ({ coursesList, authorsList, onCreateCourseBtnClick }) => {
 	const [courses, setCourses] = useState(coursesList);

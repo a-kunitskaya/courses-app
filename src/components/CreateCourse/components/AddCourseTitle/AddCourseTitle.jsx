@@ -5,7 +5,7 @@ import {
 	ADD_COURSE_TITLE_INPUT_PLACEHOLDER_TXT,
 	CREATE_COURSE_BTN_LBL_TXT,
 } from '../../../../constants';
-import { Col, Form, Row, Stack } from 'react-bootstrap';
+import { Col, Form } from 'react-bootstrap';
 
 const AddCourseTitle = () => {
 	return (
