@@ -8,6 +8,7 @@ import {
 	AvailableAuthors,
 	CourseAuthors,
 } from './components';
+import { Card, Col, Container, Row, Stack } from 'react-bootstrap';
 
 const CreateCourse = ({ authorsList }) => {
 	const [courseAuthors, setCourseAuthors] = useState([]);
@@ -32,20 +33,40 @@ const CreateCourse = ({ authorsList }) => {
 	};
 
 	return (
-		<div>
-			<AddCourseTitle />
-			<AddCourseDescription />
-			<AddAuthor onAddAuthor={onAddAuthorHandler} />
-			<AddCourseDuration />
-			<AvailableAuthors
-				availableAuthors={availableAuthors}
-				onAddCourseAuthor={onAddCourseAuthorHandler}
-			/>
-			<CourseAuthors
-				courseAuthors={courseAuthors}
-				onDeleteCourseAuthor={onDeleteCourseAuthorHandler}
-			/>
-		</div>
+		<Container>
+			<Row className='my-3'>
+				<AddCourseTitle />
+			</Row>
+			<Row>
+				<AddCourseDescription />
+			</Row>
+			<Card border='border-dark'>
+				<Card.Body>
+					<Row>
+						<Col>
+							<AddAuthor onAddAuthor={onAddAuthorHandler} />
+						</Col>
+						<Col>
+							<AvailableAuthors
+								availableAuthors={availableAuthors}
+								onAddCourseAuthor={onAddCourseAuthorHandler}
+							/>
+						</Col>
+					</Row>
+					<Row>
+						<Col>
+							<AddCourseDuration />
+						</Col>
+						<Col>
+							<CourseAuthors
+								courseAuthors={courseAuthors}
+								onDeleteCourseAuthor={onDeleteCourseAuthorHandler}
+							/>
+						</Col>
+					</Row>
+				</Card.Body>
+			</Card>
+		</Container>
 	);
 };
 export default CreateCourse;

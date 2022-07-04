@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Header, Courses, CreateCourse } from './components';
 
 import { mockedCoursesList, mockedAuthorsList } from './helpers';
+import { Container } from 'react-bootstrap';
 
 const RENDERING_OPS = {
 	CREATE_COURSE: true,
@@ -37,7 +38,9 @@ function App() {
 	return (
 		<div>
 			<Header />
-			{renderConditionally()}
+			<Container className='border border-primary'>
+				{renderConditionally()}
+			</Container>
 		</div>
 	);
 }

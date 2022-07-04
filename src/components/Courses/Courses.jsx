@@ -16,7 +16,7 @@ const Courses = ({ coursesList, authorsList, onCreateCourseBtnClick }) => {
 	const createCourseBtnHandler = () => onCreateCourseBtnClick(true);
 
 	return (
-		<Container className='border border-primary'>
+		<>
 			<Stack direction='horizontal' gap={3}>
 				<SearchBar coursesList={coursesList} onSearch={onSearchHandler} />
 				<div className='ms-auto'>
@@ -27,7 +27,7 @@ const Courses = ({ coursesList, authorsList, onCreateCourseBtnClick }) => {
 				</div>
 			</Stack>
 			<CourseCardsList courses={courses} authors={authorsList} />
-		</Container>
+		</>
 	);
 };
 export default Courses;
