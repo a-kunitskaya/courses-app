@@ -1,17 +1,18 @@
 import { AuthorItem } from '../index';
+import { ListGroup } from 'react-bootstrap';
 
 const AuthorItemsList = ({ authors, handler, action }) => (
-	<ul>
+	<ListGroup variant='flush'>
 		{authors.map((author) => (
-			<li key={author.id}>
+			<ListGroup.Item key={author.id}>
 				<AuthorItem
 					name={author.name}
 					action={action}
 					onClick={() => handler(author)}
 				/>
-			</li>
+			</ListGroup.Item>
 		))}
-	</ul>
+	</ListGroup>
 );
 
 export default AuthorItemsList;

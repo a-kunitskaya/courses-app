@@ -7,6 +7,7 @@ import {
 } from '../../../../constants';
 
 import { getCourseDuration } from '../../../../helpers';
+import { Card } from 'react-bootstrap';
 
 const AddCourseDuration = () => {
 	const [durationInput, setDurationInput] = useState('');
@@ -18,7 +19,7 @@ const AddCourseDuration = () => {
 
 	return (
 		<>
-			<h2>Duration</h2>
+			<Card.Text className='h4 fw-bold text-center'>Duration</Card.Text>
 			<Input
 				labelText={DURATION_INPUT_LBL_TXT}
 				placeholderText={DURATION_INPUT_PLACEHOLDER_TXT}
@@ -26,8 +27,11 @@ const AddCourseDuration = () => {
 				min={1}
 				onChange={durationInputHandler}
 				value={durationInput}
+				className='border border-warning'
 			/>
-			<h4>Duration: {getCourseDuration(durationInput)}</h4>
+			<Card.Text className='display-6 my-3'>
+				Duration: {getCourseDuration(durationInput)}
+			</Card.Text>
 		</>
 	);
 };
