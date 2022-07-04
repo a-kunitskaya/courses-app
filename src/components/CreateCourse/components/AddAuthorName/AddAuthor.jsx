@@ -27,7 +27,7 @@ const AddAuthor = ({ onAddAuthor }) => {
 	return (
 		<>
 			<Card.Text className='h4 fw-bold text-center'>Add Author</Card.Text>
-			<Form onSubmit={addAuthorHandler}>
+			<Form>
 				<Form.Group>
 					<Input
 						labelText={ADD_AUTHOR_NAME_INPUT_LBL_TXT}
@@ -39,8 +39,8 @@ const AddAuthor = ({ onAddAuthor }) => {
 					/>
 					<Button
 						className='my-2 d-flex'
-						type='submit'
 						text={CREATE_AUTHOR_NAME_BTN_TXT}
+						onClick={addAuthorHandler}
 					/>
 				</Form.Group>
 			</Form>

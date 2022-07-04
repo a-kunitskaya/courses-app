@@ -11,9 +11,9 @@ import { Form, Row } from 'react-bootstrap';
 const SearchBar = ({ coursesList, onSearch }) => {
 	const [searchInput, setSearchInput] = useState('');
 
-	const searchHandler = (event) => setSearchInput(event.target.value);
+	const searchInputHandler = (event) => setSearchInput(event.target.value);
 
-	const submitHandler = (event) => {
+	const searchHandler = (event) => {
 		event.preventDefault();
 		const foundCourses = coursesList.filter(
 			(course) =>
@@ -26,15 +26,15 @@ const SearchBar = ({ coursesList, onSearch }) => {
 	};
 
 	return (
-		<Form onSubmit={submitHandler} className='m-3'>
+		<Form className='m-3'>
 			<Form.Group className='d-inline-flex'>
 				<Input
 					placeholderText={SEARCH_BAR_PLACEHOLDER_TXT}
-					onChange={searchHandler}
+					onChange={searchInputHandler}
 					value={searchInput}
 					className='border border-warning form-control-lg'
 				/>
-				<Button type='submit' text={SEARCH_BAR_BTN_TXT} />
+				<Button text={SEARCH_BAR_BTN_TXT} onClick={searchHandler} />
 			</Form.Group>
 		</Form>
 	);
