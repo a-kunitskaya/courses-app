@@ -1,13 +1,13 @@
-import { Button } from 'react-bootstrap';
+import { Button as BootstrapButton } from 'react-bootstrap';
 
-const btn = ({ text, onClick, className }) => (
-	<Button
+const Button = ({ text, onClick, className }) => (
+	<BootstrapButton
 		variant='outline-primary'
 		className={`mx-1 ${className}`}
 		onClick={onClick}
 	>
 		{text}
-	</Button>
+	</BootstrapButton>
 );
 
-export default btn;
+export default Button;

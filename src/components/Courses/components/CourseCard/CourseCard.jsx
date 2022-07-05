@@ -1,6 +1,12 @@
 import { Button } from '../../../../common';
 
-import { LOCALES, SHOW_COURSE_BTN_TXT } from '../../../../constants';
+import {
+	AUTHORS_TXT,
+	CREATED_TXT,
+	DURATION_TXT,
+	LOCALES,
+	SHOW_COURSE_BTN_TXT,
+} from '../../../../constants';
 
 import {
 	formatCreationDate,
@@ -12,10 +18,20 @@ import { Card, Col, Row } from 'react-bootstrap';
 const CourseCard = ({ course, authors }) => {
 	const { title, description, duration, creationDate } = course;
 
-	const authorsFormatted = getCourseAuthor({ course, authors }).join(', ');
-	const durationFormatted = getCourseDuration(duration);
-	const creationDateFormatted = formatCreationDate(creationDate, LOCALES.pl);
-
+	const cardItems = [
+		{
+			label: AUTHORS_TXT,
+			value: getCourseAuthor({ course, authors }).join(', '),
+		},
+		{
+			label: DURATION_TXT,
+			value: getCourseDuration(duration),
+		},
+		{
+			label: CREATED_TXT,
+			value: formatCreationDate(creationDate, LOCALES.pl),
+		},
+	];
 	return (
 		<Card border='success' className='my-4'>
 			<Card.Body>
@@ -25,20 +41,18 @@ const CourseCard = ({ course, authors }) => {
 						<Card.Text>{description}</Card.Text>
 					</Col>
 					<Col>
-						<Card.Text>
-							<span className='fw-bold'>Authors</span>: {authorsFormatted}
-						</Card.Text>
-						<Card.Text>
-							<span className='fw-bold'>Duration</span>: {durationFormatted}
-						</Card.Text>
-						<Card.Text>
-							<span className='fw-bold'>Created</span>: {creationDateFormatted}
-						</Card.Text>
-						<Button text={SHOW_COURSE_BTN_TXT} />
+						{cardItems.map(({ label, value }) => {
+							return (
+								<Card.Text key={label}>
+									<span className='fw-bold'>{label}</span>: {value}
+								</Card.Text>
+							);
+						})}
 					</Col>
 				</Row>
 			</Card.Body>
 		</Card>
 	);
 };
+
 export default CourseCard;

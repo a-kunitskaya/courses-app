@@ -1,13 +1,13 @@
 import { AuthorItem } from '../index';
 import { ListGroup } from 'react-bootstrap';
 
-const AuthorItemsList = ({ authors, handler, action }) => (
+const AuthorItemsList = ({ authors, handler, actionLabel }) => (
 	<ListGroup variant='flush'>
 		{authors.map((author) => (
 			<ListGroup.Item key={author.id}>
 				<AuthorItem
 					name={author.name}
-					action={action}
+					actionLabel={actionLabel}
 					onClick={() => handler(author)}
 				/>
 			</ListGroup.Item>

@@ -23,10 +23,10 @@ export const AUTHOR_LIST_EMPTY_TXT = 'Author list is empty';
 export const DURATION_INPUT_LBL_TXT = 'Duration';
 export const DURATION_INPUT_PLACEHOLDER_TXT = 'Enter duration in minutes...';
 
-export const ACTIONS = {
-	ADD: 'add',
-	DELETE: 'delete',
-};
+export const AUTHORS_TXT = 'Authors';
+export const COURSE_AUTHORS_TXT = 'Course authors';
+export const DURATION_TXT = 'Duration';
+export const CREATED_TXT = 'Created';
 
 export const LOCALES = {
 	pl: 'pl-PL',
