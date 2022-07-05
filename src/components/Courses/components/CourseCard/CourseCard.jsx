@@ -1,11 +1,8 @@
-import { Button } from '../../../../common';
-
 import {
 	AUTHORS_TXT,
 	CREATED_TXT,
 	DURATION_TXT,
 	LOCALES,
-	SHOW_COURSE_BTN_TXT,
 } from '../../../../constants';
 
 import {
