@@ -6,6 +6,9 @@ import { Courses, CreateCourse, Header } from './components';
 import { mockedAuthorsList, mockedCoursesList } from './helpers';
 import { Container } from 'react-bootstrap';
 
+import { Link } from 'react-router-dom';
+import Registration from './components/Registration/Registration';
+
 const RENDERING_OPS = {
 	CREATE_COURSE: true,
 	COURSE_CARDS: false,
