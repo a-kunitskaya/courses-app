@@ -1,13 +1,19 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { useState } from 'react';
-import { Courses, CreateCourse, Header } from './components';
+import {
+	CourseInfo,
+	Courses,
+	CreateCourse,
+	Header,
+	Login,
+	Registration,
+} from './components';
 
 import { mockedAuthorsList, mockedCoursesList } from './helpers';
 import { Container } from 'react-bootstrap';
-
-import { Link } from 'react-router-dom';
-import Registration from './components/Registration/Registration';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import axios from 'axios';
 
 const RENDERING_OPS = {
 	CREATE_COURSE: true,
@@ -15,6 +21,7 @@ const RENDERING_OPS = {
 };
 
 function App() {
+	axios.defaults.baseURL = 'http://localhost:4000';
 	const [createCourseClicked, setCreateCourseClicked] = useState(false);
 
 	const renderConditionally = () => {
@@ -38,13 +45,24 @@ function App() {
 		setCreateCourseClicked(isClicked);
 	};
 
-	return (
+	const mainPage = (
 		<div>
 			<Header />
 			<Container className='border border-primary'>
 				{renderConditionally()}
 			</Container>
 		</div>
+	);
+
+	return (
+		<Routes>
+			<Route path='/' element={mainPage} />
+			<Route path='/registration' element={<Registration />} />
+			<Route path='/login' element={<Login />} />
+			<Route path='/courses/:courseId' element={<CourseInfo />} />
+			<Route path='/courses' element={<Courses />} />
+			<Route path='/courses/add' element={<CreateCourse />} />
+		</Routes>
 	);
 }
 
