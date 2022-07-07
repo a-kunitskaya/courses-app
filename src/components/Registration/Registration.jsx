@@ -63,7 +63,7 @@ const Registration = () => {
 	];
 	return (
 		<div>
-			<Header isEmpty='true' />
+			<Header />
 			<Container className='d-flex justify-content-center align-items-center p-5 border border-primary'>
 				<Form onSubmit={submitHandler}>
 					<Form.Label className='h3 d-flex justify-content-center'>

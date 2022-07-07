@@ -1,5 +1,5 @@
-const TEST_USER_NAME = 'Joe Bloggings';
+const TEST_USER_NAME = 'Guest';
 
-const User = () => <p>{TEST_USER_NAME}</p>;
+const User = ({ username }) => <p>{username || TEST_USER_NAME}</p>;
 
 export default User;

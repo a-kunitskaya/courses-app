@@ -19,6 +19,11 @@ const Login = () => {
 		try {
 			const { data } = await axios.post('/login', user);
 			localStorage.setItem('token', data.result);
+
+			// Uladzislau, I'm not not sure if localStorage is a good place to store username in,
+			// where should I store it instead?
+			localStorage.setItem('username', data.user.name);
+
 			navigate('/courses');
 		} catch (err) {
 			setError(err.message);
@@ -38,7 +43,7 @@ const Login = () => {
 
 	return (
 		<div>
-			<Header isEmpty='true' />
+			<Header />
 			<Container className='d-flex justify-content-center align-items-center p-5 border border-primary'>
 				<Form onSubmit={submitHandler}>
 					<Form.Label className='h3 d-flex justify-content-center'>
