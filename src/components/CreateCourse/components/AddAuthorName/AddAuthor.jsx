@@ -15,7 +15,7 @@ const AddAuthor = ({ onAddAuthor }) => {
 
 	const addAuthorHandler = (event) => {
 		event.preventDefault();
-		const author = { name: addAuthorInput, id: Math.random() };
+		const author = { id: Math.random(), name: addAuthorInput };
 		onAddAuthor(author);
 		setAddAuthorInput('');
 	};

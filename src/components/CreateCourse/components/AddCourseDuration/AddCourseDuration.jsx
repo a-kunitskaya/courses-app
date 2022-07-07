@@ -9,12 +9,13 @@ import {
 import { getCourseDuration } from '../../../../helpers';
 import { Card } from 'react-bootstrap';
 
-const AddCourseDuration = () => {
+const AddCourseDuration = ({ onAddDuration }) => {
 	const [durationInput, setDurationInput] = useState('');
 
 	const durationInputHandler = (event) => {
 		event.preventDefault();
 		setDurationInput(event.target.value);
+		onAddDuration(durationInput);
 	};
 
 	return (

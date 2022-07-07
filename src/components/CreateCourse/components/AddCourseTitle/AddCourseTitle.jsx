@@ -7,7 +7,9 @@ import {
 } from '../../../../constants';
 import { Col, Form } from 'react-bootstrap';
 
-const AddCourseTitle = () => {
+const AddCourseTitle = ({ onAddTitle, onCreateCourse }) => {
+	const addTitleHandler = (event) => onAddTitle(event.target.value);
+
 	return (
 		<Form className='d-inline-flex'>
 			<Col md='auto'>
@@ -15,13 +17,14 @@ const AddCourseTitle = () => {
 					<Input
 						labelText={ADD_COURSE_TITLE_INPUT_LBL_TXT}
 						placeholderText={ADD_COURSE_TITLE_INPUT_PLACEHOLDER_TXT}
-						className=' border border-dark'
+						className='border border-dark'
+						onChange={addTitleHandler}
 					/>
 				</Form.Group>
 			</Col>
 			<Col />
 			<Col md='auto'>
-				<Button text={CREATE_COURSE_BTN_LBL_TXT} />
+				<Button text={CREATE_COURSE_BTN_LBL_TXT} onClick={onCreateCourse} />
 			</Col>
 		</Form>
 	);
