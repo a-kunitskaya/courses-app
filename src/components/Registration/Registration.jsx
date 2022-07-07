@@ -2,7 +2,7 @@ import { Button, Input } from '../../common';
 import { Alert, Container, Form, FormGroup } from 'react-bootstrap';
 import { Header } from '../index';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Registration = () => {
@@ -84,7 +84,7 @@ const Registration = () => {
 							<Button text='Registration' type='submit' />
 						</div>
 						<Form.Text>
-							If you have an account, you can <a href='#'>Login</a>
+							If you have an account, you can <Link to='/login'>Login</Link>
 						</Form.Text>
 					</FormGroup>
 				</Form>
