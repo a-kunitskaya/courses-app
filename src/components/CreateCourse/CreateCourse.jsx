@@ -53,7 +53,12 @@ const CreateCourse = ({ authorsList }) => {
 			authors: courseAuthors,
 		};
 
-		//TODO: pass to /courses list
+		//Uladzislau, I need your advice on what's the right way to pass this new course to /courses:
+		// I was not able to come up with a solution on how to pass this new course object to AND save all the courses added previously
+		// the options I tried (and they did not work properly, the courses added previously were lost):
+		// 1) pass as a state in navigate()
+		// 2) save in localStorage
+		// 3) lift it up by passing through props
 		console.log('new course:', newCourse);
 		navigate('/courses');
 	};
