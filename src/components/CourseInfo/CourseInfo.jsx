@@ -6,22 +6,12 @@ import {
 	DURATION_TXT,
 	LOCALES,
 } from '../../constants';
-import {
-	formatCreationDate,
-	getCourseAuthor,
-	getCourseDuration,
-} from '../../helpers';
+import { formatCreationDate, getCourseDuration } from '../../helpers';
+import { Link, useParams } from 'react-router-dom';
 
-const CourseInfo = () => {
-	const course = {
-		id: '12142342',
-		title: 'Java Script',
-		description:
-			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-		duration: 123,
-		authors: ['author1, author2'],
-		creationDate: '12/12/2012',
-	};
+const CourseInfo = ({ courses }) => {
+	const { courseId } = useParams();
+	const course = courses.find(({ id }) => id === courseId);
 
 	const { id, title, description, duration, authors, creationDate } = course;
 
@@ -44,10 +34,12 @@ const CourseInfo = () => {
 		<div>
 			<Header />
 			<Container className='border border-primary p-5'>
-				<a href='#'>{'< Back to courses'}</a>
+				<Link to='/courses' className='text-decoration-none link-dark'>
+					{'< Back to courses'}
+				</Link>
 				<Row>
 					<Col className='text-center'>
-						<h1>{title}</h1>
+						<h1 className='mb-5'>{title}</h1>
 					</Col>
 				</Row>
 				<Row>

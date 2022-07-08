@@ -21,7 +21,10 @@ function App() {
 		<Routes>
 			<Route path='/registration' element={<Registration />} />
 			<Route path='/login' element={<Login />} />
-			<Route path='/courses/:courseId' element={<CourseInfo />} />
+			<Route
+				path='/courses/:courseId'
+				element={<CourseInfo courses={mockedCoursesList} />}
+			/>
 			<Route
 				path='/courses'
 				element={
