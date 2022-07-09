@@ -1,11 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { useState } from 'react';
 import {
 	CourseInfo,
 	Courses,
 	CreateCourse,
-	Header,
 	Login,
 	Registration,
 } from './components';

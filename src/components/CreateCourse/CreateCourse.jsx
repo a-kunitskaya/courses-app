@@ -19,7 +19,6 @@ const CreateCourse = ({ authorsList }) => {
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [duration, setDuration] = useState('');
-	const { t } = useTranslation();
 
 	const navigate = useNavigate();
 

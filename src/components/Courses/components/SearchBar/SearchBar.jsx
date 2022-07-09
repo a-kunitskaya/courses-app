@@ -7,8 +7,10 @@ import {
 	SEARCH_BAR_PLACEHOLDER_TXT,
 } from '../../../../constants';
 import { Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 const SearchBar = ({ coursesList, onSearch }) => {
+	const { t } = useTranslation();
 	const [searchInput, setSearchInput] = useState('');
 
 	const searchInputHandler = (event) => setSearchInput(event.target.value);
@@ -29,12 +31,15 @@ const SearchBar = ({ coursesList, onSearch }) => {
 		<Form className='m-3'>
 			<Form.Group className='d-inline-flex'>
 				<Input
-					placeholderText={SEARCH_BAR_PLACEHOLDER_TXT}
+					placeholderText={t('courses.searchInput.placeholder')}
 					onChange={searchInputHandler}
 					value={searchInput}
 					className='border border-warning form-control-lg'
 				/>
-				<Button text={SEARCH_BAR_BTN_TXT} onClick={searchHandler} />
+				<Button
+					text={t('courses.searchInput.submitButton')}
+					onClick={searchHandler}
+				/>
 			</Form.Group>
 		</Form>
 	);
