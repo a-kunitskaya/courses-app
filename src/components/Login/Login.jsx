@@ -4,8 +4,10 @@ import { Header } from '../index';
 import { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
+	const { t } = useTranslation();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
@@ -52,32 +54,35 @@ const Login = () => {
 					<FormGroup>
 						<Input
 							type='email'
-							labelText='Email'
-							placeholderText='Enter email'
+							labelText={t('login.inputEmail.name')}
+							placeholderText={t('login.inputEmail.placeholder')}
 							className='border border-warning mb-2'
 							onChange={emailInputHandler}
 							value={email}
 						/>
 						<Input
 							type='password'
-							labelText='Password'
-							placeholderText='Enter password'
+							labelText={t('login.inputPassword.name')}
+							placeholderText={t('login.inputPassword.placeholder')}
 							className='border border-warning mb-2'
 							onChange={passwordInputHandler}
 							value={password}
 						/>
 						<div className='my-3 d-flex justify-content-center'>
-							<Button text='Login' type='submit'></Button>
+							<Button text={t('login.submitButton')} type='submit'></Button>
 						</div>
 						<Form.Text>
-							If you don't have an account, you can
-							<Link to='/registration'>Register</Link>
+							{t('login.bottomText')}
+							<Link to='/registration'>{t('login.bottomTextLink')}</Link>
 						</Form.Text>
 					</FormGroup>
 				</Form>
 			</Container>
 			{error && (
-				<Alert variant='danger'>Failed to register, reason: {error}</Alert>
+				<Alert variant='danger'>
+					{t('login.alert')}
+					{error}
+				</Alert>
 			)}
 		</div>
 	);

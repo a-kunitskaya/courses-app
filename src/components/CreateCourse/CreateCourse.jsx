@@ -11,6 +11,7 @@ import {
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import { Header } from '../index';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const CreateCourse = ({ authorsList }) => {
 	const [courseAuthors, setCourseAuthors] = useState([]);
@@ -18,6 +19,7 @@ const CreateCourse = ({ authorsList }) => {
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [duration, setDuration] = useState('');
+	const { t } = useTranslation();
 
 	const navigate = useNavigate();
 

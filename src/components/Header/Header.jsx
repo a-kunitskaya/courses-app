@@ -1,9 +1,8 @@
 import { Logo } from './components';
 import { Button, User } from '../../common';
-
-import { LOGOUT_BTN_TXT } from '../../constants';
 import { Container, Navbar } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function Header() {
 	const { pathname } = useLocation();
@@ -15,6 +14,8 @@ function Header() {
 		localStorage.removeItem('username');
 		navigate('/login');
 	};
+
+	const { t } = useTranslation();
 	return (
 		<Navbar>
 			<Container className='border border-danger'>
@@ -26,7 +27,7 @@ function Header() {
 						<Navbar.Text>
 							<User username={username} />
 						</Navbar.Text>
-						<Button text={LOGOUT_BTN_TXT} onClick={logoutHandler} />
+						<Button text={t('header.logoutBtnTxt')} onClick={logoutHandler} />
 					</>
 				)}
 			</Container>

@@ -1,5 +1,8 @@
-const TEST_USER_NAME = 'Guest';
+import { useTranslation } from 'react-i18next';
 
-const User = ({ username }) => <p>{username || TEST_USER_NAME}</p>;
+const User = ({ username }) => {
+	const { t } = useTranslation();
+	return <p>{username || t('user.defaultUsername')}</p>;
+};
 
 export default User;

@@ -4,12 +4,14 @@ import { Header } from '../index';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 const Registration = () => {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
+	const { t } = useTranslation();
 
 	const navigate = useNavigate();
 
@@ -41,22 +43,22 @@ const Registration = () => {
 	const inputFields = [
 		{
 			type: 'text',
-			label: 'Name',
-			placeholder: 'Enter name',
+			label: t('registration.inputName.name'),
+			placeholder: t('registration.inputName.placeholder'),
 			onChange: nameInputHandler,
 			value: name,
 		},
 		{
 			type: 'email',
-			label: 'Email',
-			placeholder: 'Enter email',
+			label: t('registration.inputEmail.name'),
+			placeholder: t('registration.inputEmail.placeholder'),
 			onChange: emailInputHandler,
 			value: email,
 		},
 		{
 			type: 'password',
-			label: 'Password',
-			placeholder: 'Enter password',
+			label: t('registration.inputPassword.name'),
+			placeholder: t('registration.inputPassword.placeholder'),
 			onChange: passwordInputHandler,
 			value: password,
 		},
@@ -67,7 +69,7 @@ const Registration = () => {
 			<Container className='d-flex justify-content-center align-items-center p-5 border border-primary'>
 				<Form onSubmit={submitHandler}>
 					<Form.Label className='h3 d-flex justify-content-center'>
-						Registration
+						{t('registration.heading')}
 					</Form.Label>
 					<FormGroup>
 						{inputFields.map((data) => (
@@ -81,16 +83,20 @@ const Registration = () => {
 							/>
 						))}
 						<div className='my-3 d-flex justify-content-center'>
-							<Button text='Registration' type='submit' />
+							<Button text={t('registration.submitButton')} type='submit' />
 						</div>
 						<Form.Text>
-							If you have an account, you can <Link to='/login'>Login</Link>
+							{t('registration.bottomText')}{' '}
+							<Link to='/login'>{t('registration.bottomTextLink')}</Link>
 						</Form.Text>
 					</FormGroup>
 				</Form>
 			</Container>
 			{error && (
-				<Alert variant='danger'>Failed to register, reason: {error}</Alert>
+				<Alert variant='danger'>
+					{t('registration.alert')}
+					{error}
+				</Alert>
 			)}
 		</div>
 	);

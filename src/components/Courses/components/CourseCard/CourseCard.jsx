@@ -1,9 +1,4 @@
-import {
-	AUTHORS_TXT,
-	CREATED_TXT,
-	DURATION_TXT,
-	LOCALES,
-} from '../../../../constants';
+import { LOCALES } from '../../../../constants';
 
 import {
 	formatCreationDate,
@@ -11,21 +6,23 @@ import {
 	getCourseDuration,
 } from '../../../../helpers';
 import { Card, Col, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 const CourseCard = ({ course, authors }) => {
 	const { title, description, duration, creationDate } = course;
+	const { t } = useTranslation();
 
 	const cardItems = [
 		{
-			label: AUTHORS_TXT,
+			label: t('courses.authors'),
 			value: getCourseAuthor({ course, authors }).join(', '),
 		},
 		{
-			label: DURATION_TXT,
+			label: t('courses.duration'),
 			value: getCourseDuration(duration),
 		},
 		{
-			label: CREATED_TXT,
+			label: t('courses.created'),
 			value: formatCreationDate(creationDate, LOCALES.pl),
 		},
 	];

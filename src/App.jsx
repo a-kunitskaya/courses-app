@@ -13,6 +13,7 @@ import {
 import { mockedAuthorsList, mockedCoursesList } from './helpers';
 import { Route, Routes } from 'react-router-dom';
 import axios from 'axios';
+import './i18n';
 
 function App() {
 	axios.defaults.baseURL = 'http://localhost:4000';
