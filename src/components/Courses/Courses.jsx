@@ -1,4 +1,4 @@
-import { useState, useTransition } from 'react';
+import { useState } from 'react';
 
 import { CourseCardsList, SearchBar } from './components';
 import { Button } from '../../common';

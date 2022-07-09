@@ -1,10 +1,6 @@
 import { useState } from 'react';
 
 import { Input } from '../../../../common';
-import {
-	DURATION_INPUT_LBL_TXT,
-	DURATION_INPUT_PLACEHOLDER_TXT,
-} from '../../../../constants';
 
 import { getCourseDuration } from '../../../../helpers';
 import { Card } from 'react-bootstrap';

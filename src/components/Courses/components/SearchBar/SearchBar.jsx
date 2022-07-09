@@ -1,11 +1,6 @@
 import { useState } from 'react';
 
 import { Button, Input } from '../../../../common';
-
-import {
-	SEARCH_BAR_BTN_TXT,
-	SEARCH_BAR_PLACEHOLDER_TXT,
-} from '../../../../constants';
 import { Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 

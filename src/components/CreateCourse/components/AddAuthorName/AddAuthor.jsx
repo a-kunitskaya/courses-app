@@ -2,12 +2,7 @@ import { useState } from 'react';
 
 import { Button, Input } from '../../../../common';
 
-import {
-	ADD_AUTHOR_NAME_INPUT_LBL_TXT,
-	ADD_AUTHOR_NAME_INPUT_PLACEHOLDER_TXT,
-	ADD_AUTHOR_NAME_MIN_CHARS_NUM,
-	CREATE_AUTHOR_NAME_BTN_TXT,
-} from '../../../../constants';
+import { ADD_AUTHOR_NAME_MIN_CHARS_NUM } from '../../../../constants';
 import { Card, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
