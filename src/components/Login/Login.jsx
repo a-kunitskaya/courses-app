@@ -5,6 +5,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { login } from '../../services';
 
 const Login = () => {
 	const { t } = useTranslation();
@@ -19,11 +20,9 @@ const Login = () => {
 
 	const logIn = async (user) => {
 		try {
-			const { data } = await axios.post('/login', user);
-			localStorage.setItem('token', data.result);
+			const { data } = await login(user);
 
-			// Uladzislau, I'm not not sure if localStorage is a good place to store username in,
-			// where should I store it instead?
+			localStorage.setItem('token', data.result);
 			localStorage.setItem('username', data.user.name);
 
 			navigate('/courses');
