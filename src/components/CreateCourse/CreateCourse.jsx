@@ -12,7 +12,7 @@ import { Card, Col, Container, Row } from 'react-bootstrap';
 import { Header } from '../index';
 import { useNavigate } from 'react-router-dom';
 
-const CreateCourse = ({ authorsList }) => {
+const CreateCourse = ({ authorsList, onCourseAdd }) => {
 	const [courseAuthors, setCourseAuthors] = useState([]);
 	const [availableAuthors, setAvailableAuthors] = useState(authorsList);
 	const [title, setTitle] = useState('');
@@ -45,21 +45,14 @@ const CreateCourse = ({ authorsList }) => {
 	const onCreateCourseHandler = (event) => {
 		event.preventDefault();
 		const newCourse = {
-			id: Math.random(),
+			id: Math.random().toString(),
 			title,
 			description,
 			creationDate: new Date(),
 			duration,
-			authors: courseAuthors,
+			authors: courseAuthors.map((author) => author.id),
 		};
-
-		//Uladzislau, I need your advice on what's the right way to pass this new course to /courses:
-		// I was not able to come up with a solution on how to pass this new course object to AND save all the courses added previously
-		// the options I tried (and they did not work properly, the courses added previously were lost):
-		// 1) pass as a state in navigate()
-		// 2) save in localStorage
-		// 3) lift it up by passing through props
-		console.log('new course:', newCourse);
+		onCourseAdd(newCourse);
 		navigate('/courses');
 	};
 
