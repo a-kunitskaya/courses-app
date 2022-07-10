@@ -2,16 +2,22 @@ import { Button, Input } from '../../common';
 import { Alert, Container, Form, FormGroup } from 'react-bootstrap';
 import { Header } from '../index';
 import { useState } from 'react';
-import axios from 'axios';
+
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { login } from '../../services';
+
+import { logInUser } from '../../store/user/reducer';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Login = () => {
 	const { t } = useTranslation();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
+
+	const userSelector = useSelector((state) => state.user.isAuth);
+	const dispatch = useDispatch();
 
 	const navigate = useNavigate();
 
@@ -36,7 +42,8 @@ const Login = () => {
 		event.preventDefault();
 		setError('');
 
-		await logIn({ email, password });
+		dispatch(logInUser());
+		// await logIn({ email, password });
 
 		setEmail('');
 		setPassword('');
