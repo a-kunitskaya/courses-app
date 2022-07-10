@@ -1,17 +1,19 @@
 import { AuthorItemsList } from '../../index';
-
-import { ADD_AUTHOR_BTN_TXT } from '../../../../../constants';
 import { Card } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
-const AvailableAuthors = ({ availableAuthors, onAddCourseAuthor }) => (
-	<>
-		<Card.Text className='h4 fw-bold text-center'>Authors</Card.Text>
-		<AuthorItemsList
-			authors={availableAuthors}
-			handler={onAddCourseAuthor}
-			actionLabel={ADD_AUTHOR_BTN_TXT}
-		/>
-	</>
-);
+const AvailableAuthors = ({ availableAuthors, onAddCourseAuthor }) => {
+	const { t } = useTranslation();
+	return (
+		<>
+			<Card.Text className='h4 fw-bold text-center'>Authors</Card.Text>
+			<AuthorItemsList
+				authors={availableAuthors}
+				handler={onAddCourseAuthor}
+				actionLabel={t('createCourse.addAuthorBtn')}
+			/>
+		</>
+	);
+};
 
 export default AvailableAuthors;

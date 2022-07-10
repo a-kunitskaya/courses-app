@@ -1,47 +1,69 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { useState } from 'react';
-import { Courses, CreateCourse, Header } from './components';
+import {
+	CourseInfo,
+	Courses,
+	CreateCourse,
+	Login,
+	Registration,
+} from './components';
 
 import { mockedAuthorsList, mockedCoursesList } from './helpers';
-import { Container } from 'react-bootstrap';
-
-const RENDERING_OPS = {
-	CREATE_COURSE: true,
-	COURSE_CARDS: false,
-};
+import { Navigate, Route, Routes } from 'react-router-dom';
+import axios from 'axios';
+import './i18n';
+import { BASE_BACKEND_URL } from './constants';
+import { useState } from 'react';
 
 function App() {
-	const [createCourseClicked, setCreateCourseClicked] = useState(false);
+	axios.defaults.baseURL = BASE_BACKEND_URL;
 
-	const renderConditionally = () => {
-		switch (createCourseClicked) {
-			case RENDERING_OPS.CREATE_COURSE:
-				return <CreateCourse authorsList={mockedAuthorsList} />;
-			case RENDERING_OPS.COURSE_CARDS:
-				return (
-					<Courses
-						onCreateCourseBtnClick={onCreateCourseBtnClicked}
-						coursesList={mockedCoursesList}
-						authorsList={mockedAuthorsList}
-					/>
-				);
-			default:
-				console.error('Error in conditional rendering');
-		}
+	const AppRoutes = {
+		Registration: '/registration',
+		Login: '/login',
+		CourseInfo: '/courses/:courseId',
+		Courses: '/courses',
+		CreateCourse: '/courses/add',
 	};
 
-	const onCreateCourseBtnClicked = (isClicked) => {
-		setCreateCourseClicked(isClicked);
+	const [courses, setCourses] = useState(mockedCoursesList);
+	const [authors, setAuthors] = useState(mockedAuthorsList);
+
+	const addCourseHandler = (newCourse) => {
+		setCourses((prevCourses) => [...prevCourses, newCourse]);
+		console.log('courses', courses);
 	};
 
 	return (
-		<div>
-			<Header />
-			<Container className='border border-primary'>
-				{renderConditionally()}
-			</Container>
-		</div>
+		<Routes>
+			<Route path='*' element={<Navigate to={AppRoutes.Courses} replace />} />
+			<Route path={AppRoutes.Registration} element={<Registration />} />
+			<Route path={AppRoutes.Login} element={<Login />} />
+			<Route
+				path={AppRoutes.CourseInfo}
+				element={<CourseInfo courses={mockedCoursesList} />}
+			/>
+			<Route
+				path={AppRoutes.Courses}
+				element={
+					<Courses
+						coursesList={courses}
+						authorsList={authors}
+						setAuthors={setAuthors}
+					/>
+				}
+			/>
+			<Route
+				path={AppRoutes.CreateCourse}
+				element={
+					<CreateCourse
+						authorsList={authors}
+						setAuthors={setAuthors}
+						onCourseAdd={addCourseHandler}
+					/>
+				}
+			/>
+		</Routes>
 	);
 }
 

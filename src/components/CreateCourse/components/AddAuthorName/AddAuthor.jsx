@@ -2,20 +2,17 @@ import { useState } from 'react';
 
 import { Button, Input } from '../../../../common';
 
-import {
-	ADD_AUTHOR_NAME_INPUT_LBL_TXT,
-	ADD_AUTHOR_NAME_INPUT_PLACEHOLDER_TXT,
-	ADD_AUTHOR_NAME_MIN_CHARS_NUM,
-	CREATE_AUTHOR_NAME_BTN_TXT,
-} from '../../../../constants';
+import { ADD_AUTHOR_NAME_MIN_CHARS_NUM } from '../../../../constants';
 import { Card, Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 const AddAuthor = ({ onAddAuthor }) => {
+	const { t } = useTranslation();
 	const [addAuthorInput, setAddAuthorInput] = useState('');
 
 	const addAuthorHandler = (event) => {
 		event.preventDefault();
-		const author = { name: addAuthorInput, id: Math.random() };
+		const author = { id: Math.random(), name: addAuthorInput };
 		onAddAuthor(author);
 		setAddAuthorInput('');
 	};
@@ -30,8 +27,8 @@ const AddAuthor = ({ onAddAuthor }) => {
 			<Form>
 				<Form.Group>
 					<Input
-						labelText={ADD_AUTHOR_NAME_INPUT_LBL_TXT}
-						placeholderText={ADD_AUTHOR_NAME_INPUT_PLACEHOLDER_TXT}
+						labelText={t('createCourse.inputAuthor.name')}
+						placeholderText={t('createCourse.inputAuthor.placeholder')}
 						minLength={ADD_AUTHOR_NAME_MIN_CHARS_NUM}
 						onChange={addAuthorInputHandler}
 						value={addAuthorInput}
@@ -39,7 +36,7 @@ const AddAuthor = ({ onAddAuthor }) => {
 					/>
 					<Button
 						className='my-2 d-flex'
-						text={CREATE_AUTHOR_NAME_BTN_TXT}
+						text={t('createCourse.createAuthorBtn')}
 						onClick={addAuthorHandler}
 					/>
 				</Form.Group>

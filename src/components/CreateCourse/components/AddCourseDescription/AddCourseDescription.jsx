@@ -1,22 +1,24 @@
 import { Textarea } from '../../../../common';
 
-import {
-	ADD_COURSE_DESCRIPTION_MIN_CHARS_NUM,
-	ADD_COURSE_DESCRIPTION_TEXTAREA_LBL_TXT,
-	ADD_COURSE_DESCRIPTION_TEXTAREA_PLACEHOLDER_TXT,
-} from '../../../../constants';
+import { ADD_COURSE_DESCRIPTION_MIN_CHARS_NUM } from '../../../../constants';
 import { Col } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
-const AddCourseDescription = () => (
-	<Col>
-		<Textarea
-			labelText={ADD_COURSE_DESCRIPTION_TEXTAREA_LBL_TXT}
-			placeholderText={ADD_COURSE_DESCRIPTION_TEXTAREA_PLACEHOLDER_TXT}
-			minlength={ADD_COURSE_DESCRIPTION_MIN_CHARS_NUM}
-			rows={5}
-			className='border border-warning'
-		/>
-	</Col>
-);
+const AddCourseDescription = ({ onAddDescription }) => {
+	const { t } = useTranslation();
+	const addDescriptionHandler = (event) => onAddDescription(event.target.value);
+	return (
+		<Col>
+			<Textarea
+				labelText={t('createCourse.inputDescription.name')}
+				placeholderText={t('createCourse.inputDescription.placeholder')}
+				minlength={ADD_COURSE_DESCRIPTION_MIN_CHARS_NUM}
+				rows={5}
+				className='border border-warning'
+				onChange={addDescriptionHandler}
+			/>
+		</Col>
+	);
+};
 
 export default AddCourseDescription;

@@ -8,7 +8,7 @@ const Input = ({
 	type = 'text',
 	min,
 	value,
-	required = true,
+	required = false,
 	className,
 }) => (
 	<>
