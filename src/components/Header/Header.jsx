@@ -3,15 +3,18 @@ import { Button, User } from '../../common';
 import { Container, Navbar } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { logoutAction } from '../../store/user/reducer';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Header() {
 	const { pathname } = useLocation();
 	const genericHeader = pathname === '/login' || pathname === '/registration';
-	const username = localStorage.getItem('username');
+	const username = useSelector((state) => state.user.name);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const logoutHandler = () => {
+		dispatch(logoutAction());
 		localStorage.removeItem('token');
-		localStorage.removeItem('username');
 		navigate('/login');
 	};
 

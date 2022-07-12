@@ -7,16 +7,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { login } from '../../services';
 
-import { logInUser } from '../../store/user/reducer';
-import { useDispatch, useSelector } from 'react-redux';
+import { loginAction } from '../../store/user/reducer';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
 	const { t } = useTranslation();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
-
-	const userSelector = useSelector((state) => state.user.isAuth);
 	const dispatch = useDispatch();
 
 	const navigate = useNavigate();
@@ -27,10 +25,15 @@ const Login = () => {
 	const logIn = async (user) => {
 		try {
 			const { data } = await login(user);
+			dispatch(
+				loginAction({
+					name: data.user.name,
+					email: data.user.email,
+					token: data.result,
+				})
+			);
 
 			localStorage.setItem('token', data.result);
-			localStorage.setItem('username', data.user.name);
-
 			navigate('/courses');
 		} catch (err) {
 			setError(err.message);
@@ -42,8 +45,7 @@ const Login = () => {
 		event.preventDefault();
 		setError('');
 
-		dispatch(logInUser());
-		// await logIn({ email, password });
+		await logIn({ email, password });
 
 		setEmail('');
 		setPassword('');
