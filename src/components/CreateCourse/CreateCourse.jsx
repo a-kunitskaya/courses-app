@@ -48,7 +48,7 @@ const CreateCourse = ({ authorsList, onCourseAdd }) => {
 			id: Math.random().toString(),
 			title,
 			description,
-			creationDate: new Date(),
+			creationDate: new Date().toString(),
 			duration,
 			authors: courseAuthors.map((author) => author.id),
 		};

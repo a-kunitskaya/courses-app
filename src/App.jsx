@@ -8,12 +8,15 @@ import {
 	Registration,
 } from './components';
 
-import { mockedAuthorsList, mockedCoursesList } from './helpers';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import axios from 'axios';
 import './i18n';
 import { BASE_BACKEND_URL } from './constants';
-import { useState } from 'react';
+import { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllAuthors, getAllCourses } from './services';
+import { addCourseAction, setCoursesAction } from './store/courses/reducer';
+import { setAuthorsAction } from './store/authors/reducer';
 
 function App() {
 	axios.defaults.baseURL = BASE_BACKEND_URL;
@@ -26,11 +29,39 @@ function App() {
 		CreateCourse: '/courses/add',
 	};
 
-	const [courses, setCourses] = useState(mockedCoursesList);
-	const [authors, setAuthors] = useState(mockedAuthorsList);
+	const dispatch = useDispatch();
+	const courses = useSelector((state) => state.courses);
+	const authors = useSelector((state) => state.authors);
+
+	const loadCourses = useCallback(async () => {
+		try {
+			const {
+				data: { result },
+			} = await getAllCourses();
+			dispatch(setCoursesAction(result));
+		} catch (err) {
+			console.log('Failed to get courses', err);
+		}
+	}, []);
+
+	const loadAuthors = useCallback(async () => {
+		try {
+			const {
+				data: { result },
+			} = await getAllAuthors();
+			dispatch(setAuthorsAction(result));
+		} catch (err) {
+			console.log('Failed to get authors', err);
+		}
+	}, []);
+
+	useEffect(() => {
+		loadCourses();
+		loadAuthors();
+	}, []);
 
 	const addCourseHandler = (newCourse) => {
-		setCourses((prevCourses) => [...prevCourses, newCourse]);
+		dispatch(addCourseAction(newCourse));
 		console.log('courses', courses);
 	};
 
@@ -41,26 +72,16 @@ function App() {
 			<Route path={AppRoutes.Login} element={<Login />} />
 			<Route
 				path={AppRoutes.CourseInfo}
-				element={<CourseInfo courses={mockedCoursesList} />}
+				element={<CourseInfo courses={courses} />}
 			/>
 			<Route
 				path={AppRoutes.Courses}
-				element={
-					<Courses
-					// coursesList={courses}
-					// authorsList={authors}
-					// setAuthors={setAuthors}
-					/>
-				}
+				element={<Courses coursesList={courses} authorsList={authors} />}
 			/>
 			<Route
 				path={AppRoutes.CreateCourse}
 				element={
-					<CreateCourse
-						authorsList={authors}
-						setAuthors={setAuthors}
-						onCourseAdd={addCourseHandler}
-					/>
+					<CreateCourse authorsList={authors} onCourseAdd={addCourseHandler} />
 				}
 			/>
 		</Routes>

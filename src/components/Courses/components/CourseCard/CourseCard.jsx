@@ -7,10 +7,18 @@ import {
 } from '../../../../helpers';
 import { Card, Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { Button } from '../../../../common';
+import { useDispatch } from 'react-redux';
+import { deleteCourseAction } from '../../../../store/courses/reducer';
 
-const CourseCard = ({ course, authors }) => {
-	const { title, description, duration, creationDate } = course;
+const CourseCard = ({ course, authors, onDeleteCourse }) => {
+	const { id, title, description, duration, creationDate } = course;
 	const { t } = useTranslation();
+	const dispatch = useDispatch();
+
+	const onDeleteHandler = async (event) => {
+		dispatch(deleteCourseAction(id));
+	};
 
 	const cardItems = [
 		{
@@ -42,6 +50,8 @@ const CourseCard = ({ course, authors }) => {
 								</Card.Text>
 							);
 						})}
+						<Button text='Delete' onClick={onDeleteHandler} />
+						<Button text='Update' />
 					</Col>
 				</Row>
 			</Card.Body>
