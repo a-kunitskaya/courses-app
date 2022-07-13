@@ -5,7 +5,8 @@ const coursesSlice = createSlice({
 	initialState: [],
 	reducers: {
 		addCourseAction(state, action) {
-			state.push(action.payload);
+			console.log('addCourseAction', state.concat(action.payload));
+			state = state.concat(action.payload);
 		},
 	},
 });

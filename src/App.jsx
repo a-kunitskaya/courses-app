@@ -47,9 +47,9 @@ function App() {
 				path={AppRoutes.Courses}
 				element={
 					<Courses
-						coursesList={courses}
-						authorsList={authors}
-						setAuthors={setAuthors}
+					// coursesList={courses}
+					// authorsList={authors}
+					// setAuthors={setAuthors}
 					/>
 				}
 			/>

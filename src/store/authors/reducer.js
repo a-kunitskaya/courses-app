@@ -4,8 +4,8 @@ const authorsSlice = createSlice({
 	name: 'authors',
 	initialState: [],
 	reducers: {
-		addAuthorAction(state, action) {
-			state.push(action.payload);
+		addAuthorsAction(state, action) {
+			state = state.concat(action.payload);
 		},
 	},
 });
