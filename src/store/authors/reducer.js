@@ -5,10 +5,13 @@ const authorsSlice = createSlice({
 	initialState: [],
 	reducers: {
 		addAuthorsAction(state, action) {
-			state = state.concat(action.payload);
+			state.push(action.payload);
+		},
+		setAuthorsAction(state, action) {
+			state = action.payload;
 		},
 	},
 });
 
-export const { addAuthorsAction } = authorsSlice.actions;
+export const { addAuthorsAction, setAuthorsAction } = authorsSlice.actions;
 export default authorsSlice.reducer;

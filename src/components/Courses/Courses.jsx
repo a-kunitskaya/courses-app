@@ -8,25 +8,41 @@ import { useNavigate } from 'react-router-dom';
 import { Header } from '../index';
 import { useTranslation } from 'react-i18next';
 import { getAllAuthors, getAllCourses } from '../../services';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCoursesAction } from '../../store/courses/reducer';
+import { setAuthorsAction } from '../../store/authors/reducer';
 
 const Courses = () => {
 	const navigate = useNavigate();
-	const [courses, setCourses] = useState([]);
-	const [authors, setAuthors] = useState([]);
+	const coursesSelector = useSelector((state) => state.courses);
+	const authorsSelector = useSelector((state) => state.authors);
+	const [courses, setCourses] = useState(coursesSelector);
+	const [authors, setAuthors] = useState(authorsSelector);
+	const dispatch = useDispatch();
 	const { t } = useTranslation();
 
 	const getCourses = useCallback(async () => {
-		const res = await getAllCourses();
-		const result = res.data.result;
-		console.log('!!!!courses result', result);
-		setCourses(result);
+		try {
+			const {
+				data: { result },
+			} = await getAllCourses();
+			dispatch(setCoursesAction(result));
+			setCourses(result);
+		} catch (err) {
+			console.log('Failed to get courses', err);
+		}
 	}, []);
 
 	const getAuthors = useCallback(async () => {
-		const res = await getAllAuthors();
-		const result = res.data.result;
-		console.log('!!!!authors result', result);
-		setAuthors(result);
+		try {
+			const {
+				data: { result },
+			} = await getAllAuthors();
+			dispatch(setAuthorsAction(result));
+			setAuthors(result);
+		} catch (err) {
+			console.log('Failed to get authors', err);
+		}
 	}, []);
 
 	useEffect(() => {

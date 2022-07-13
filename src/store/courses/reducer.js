@@ -5,11 +5,13 @@ const coursesSlice = createSlice({
 	initialState: [],
 	reducers: {
 		addCourseAction(state, action) {
-			console.log('addCourseAction', state.concat(action.payload));
-			state = state.concat(action.payload);
+			state.push(action.payload);
+		},
+		setCoursesAction(state, action) {
+			state = action.payload;
 		},
 	},
 });
 
-export const { addCourseAction } = coursesSlice.actions;
+export const { addCourseAction, setCoursesAction } = coursesSlice.actions;
 export default coursesSlice.reducer;
