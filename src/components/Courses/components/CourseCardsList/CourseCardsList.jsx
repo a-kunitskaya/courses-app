@@ -1,6 +1,5 @@
 import { CourseCard } from '../index';
 import { ListGroup } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
 
 const CourseCardsList = ({ courses }) => {
 	return (

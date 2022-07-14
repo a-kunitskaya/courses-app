@@ -13,24 +13,16 @@ import axios from 'axios';
 import './i18n';
 import { BASE_BACKEND_URL } from './constants';
 import { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getAllAuthors, getAllCourses } from './services';
 import { addCourseAction, setCoursesAction } from './store/courses/reducer';
 import { setAuthorsAction } from './store/authors/reducer';
+import { ROUTES } from './routes';
 
 function App() {
 	axios.defaults.baseURL = BASE_BACKEND_URL;
 
-	const AppRoutes = {
-		Registration: '/registration',
-		Login: '/login',
-		CourseInfo: '/courses/:courseId',
-		Courses: '/courses',
-		CreateCourse: '/courses/add',
-	};
-
 	const dispatch = useDispatch();
-
 	const loadCourses = useCallback(async () => {
 		try {
 			const {
@@ -38,7 +30,7 @@ function App() {
 			} = await getAllCourses();
 			dispatch(setCoursesAction(result));
 		} catch (err) {
-			console.log('Failed to get courses', err);
+			console.log('Failed to load courses', err);
 		}
 	}, []);
 
@@ -49,14 +41,14 @@ function App() {
 			} = await getAllAuthors();
 			dispatch(setAuthorsAction(result));
 		} catch (err) {
-			console.log('Failed to get authors', err);
+			console.log('Failed to load authors', err);
 		}
 	}, []);
 
 	useEffect(() => {
 		loadCourses();
 		loadAuthors();
-	}, [loadAuthors, loadCourses]);
+	}, []);
 
 	const addCourseHandler = (newCourse) => {
 		dispatch(addCourseAction(newCourse));
@@ -64,13 +56,16 @@ function App() {
 
 	return (
 		<Routes>
-			<Route path='*' element={<Navigate to={AppRoutes.Courses} replace />} />
-			<Route path={AppRoutes.Registration} element={<Registration />} />
-			<Route path={AppRoutes.Login} element={<Login />} />
-			<Route path={AppRoutes.CourseInfo} element={<CourseInfo />} />
-			<Route path={AppRoutes.Courses} element={<Courses />} />
 			<Route
-				path={AppRoutes.CreateCourse}
+				path={ROUTES.ALL}
+				element={<Navigate to={ROUTES.COURSES} replace />}
+			/>
+			<Route path={ROUTES.REGISTRATION} element={<Registration />} />
+			<Route path={ROUTES.LOGIN} element={<Login />} />
+			<Route path={ROUTES.COURSE_INFO} element={<CourseInfo />} />
+			<Route path={ROUTES.COURSES} element={<Courses />} />
+			<Route
+				path={ROUTES.CREATE_COURSE}
 				element={<CreateCourse onCourseAdd={addCourseHandler} />}
 			/>
 		</Routes>

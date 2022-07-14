@@ -59,7 +59,6 @@ const CreateCourse = ({ onCourseAdd }) => {
 			duration,
 			authors: courseAuthors.map((author) => author.id),
 		};
-		console.log('new course', newCourse);
 		onCourseAdd(newCourse);
 		navigate('/courses');
 	};
