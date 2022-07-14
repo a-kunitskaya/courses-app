@@ -11,18 +11,24 @@ import {
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import { Header } from '../index';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addAuthorsAction } from '../../store/authors/reducer';
 
-const CreateCourse = ({ authorsList, onCourseAdd }) => {
+const CreateCourse = ({ onCourseAdd }) => {
+	const dispatch = useDispatch();
 	const [courseAuthors, setCourseAuthors] = useState([]);
-	const [availableAuthors, setAvailableAuthors] = useState(authorsList);
+	const allAuthors = useSelector((state) => state.authors);
+	const [availableAuthors, setAvailableAuthors] = useState(allAuthors);
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [duration, setDuration] = useState('');
 
 	const navigate = useNavigate();
 
-	const onAddAuthorHandler = (author) =>
+	const onAddAuthorHandler = (author) => {
+		dispatch(addAuthorsAction(author));
 		setAvailableAuthors((prevState) => [author, ...prevState]);
+	};
 
 	const onAddCourseAuthorHandler = (author) => {
 		setCourseAuthors((prevState) => [author, ...prevState]);
@@ -59,6 +65,7 @@ const CreateCourse = ({ authorsList, onCourseAdd }) => {
 	return (
 		<div>
 			<Header />
+			{JSON.stringify(allAuthors)}
 			<Container className='border border-primary'>
 				<Row className='my-3'>
 					<AddCourseTitle

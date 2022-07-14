@@ -62,7 +62,6 @@ function App() {
 
 	const addCourseHandler = (newCourse) => {
 		dispatch(addCourseAction(newCourse));
-		console.log('courses', courses);
 	};
 
 	return (

@@ -6,16 +6,15 @@ const coursesSlice = createSlice({
 	initialState: [],
 	reducers: {
 		addCourseAction(state, action) {
-			console.log('adding action course', action.payload);
 			state.push(action.payload);
-			console.log('state', state);
 		},
 		setCoursesAction(state, action) {
-			state = action.payload;
+			console.log('in set courses action', action.payload);
+			return action.payload;
 		},
 		deleteCourseAction(state, action) {
 			const courseId = action.payload;
-			state = state.filter((course) => course.id !== courseId);
+			return state.filter((course) => course.id !== courseId);
 		},
 	},
 });

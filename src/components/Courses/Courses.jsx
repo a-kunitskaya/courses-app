@@ -7,7 +7,7 @@ import { Header } from '../index';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 
-const Courses = ({ coursesList, authorsList, onDeleteCourse }) => {
+const Courses = ({ coursesList, authorsList }) => {
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 	const [searchResults, setSearchResults] = useState([]);
@@ -34,7 +34,6 @@ const Courses = ({ coursesList, authorsList, onDeleteCourse }) => {
 				<CourseCardsList
 					courses={searchResults.length ? searchResults : coursesList}
 					authors={authorsList}
-					onDeleteCourse={onDeleteCourse}
 				/>
 			</Container>
 		</>

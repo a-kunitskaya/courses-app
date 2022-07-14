@@ -11,12 +11,13 @@ import { Button } from '../../../../common';
 import { useDispatch } from 'react-redux';
 import { deleteCourseAction } from '../../../../store/courses/reducer';
 
-const CourseCard = ({ course, authors, onDeleteCourse }) => {
+const CourseCard = ({ course, authors }) => {
 	const { id, title, description, duration, creationDate } = course;
 	const { t } = useTranslation();
 	const dispatch = useDispatch();
 
 	const onDeleteHandler = async (event) => {
+		event.preventDefault();
 		dispatch(deleteCourseAction(id));
 	};
 
