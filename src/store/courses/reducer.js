@@ -5,11 +5,9 @@ const coursesSlice = createSlice({
 	initialState: [],
 	reducers: {
 		addCourseAction(state, action) {
-			console.log('id', action.payload.id);
 			state.push(action.payload);
 		},
 		setCoursesAction(state, action) {
-			console.log('in set courses action', action.payload);
 			return action.payload;
 		},
 		deleteCourseAction(state, action) {

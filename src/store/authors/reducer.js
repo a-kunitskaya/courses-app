@@ -8,7 +8,6 @@ const authorsSlice = createSlice({
 			state.push(action.payload);
 		},
 		setAuthorsAction(state, action) {
-			console.log('set authors', action.payload);
 			return action.payload;
 		},
 	},
