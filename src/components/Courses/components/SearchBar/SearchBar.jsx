@@ -3,16 +3,18 @@ import { useState } from 'react';
 import { Button, Input } from '../../../../common';
 import { Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
-const SearchBar = ({ coursesList, onSearch }) => {
+const SearchBar = ({ onSearch }) => {
 	const { t } = useTranslation();
+	const courses = useSelector((state) => state.courses);
 	const [searchInput, setSearchInput] = useState('');
 
 	const searchInputHandler = (event) => setSearchInput(event.target.value);
 
 	const searchHandler = (event) => {
 		event.preventDefault();
-		const foundCourses = coursesList.filter(
+		const foundCourses = courses.filter(
 			(course) =>
 				course.id.toLowerCase().includes(searchInput.toLowerCase()) ||
 				course.title.toLowerCase().includes(searchInput.toLowerCase())

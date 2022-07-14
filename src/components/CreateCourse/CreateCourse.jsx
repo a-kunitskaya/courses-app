@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { v1 as uuid } from 'uuid';
 
 import {
 	AddAuthor,
@@ -51,13 +52,14 @@ const CreateCourse = ({ onCourseAdd }) => {
 	const onCreateCourseHandler = (event) => {
 		event.preventDefault();
 		const newCourse = {
-			id: Math.random().toString(),
+			id: uuid(),
 			title,
 			description,
 			creationDate: new Date().toString(),
 			duration,
 			authors: courseAuthors.map((author) => author.id),
 		};
+		console.log('new course', newCourse);
 		onCourseAdd(newCourse);
 		navigate('/courses');
 	};
@@ -65,7 +67,6 @@ const CreateCourse = ({ onCourseAdd }) => {
 	return (
 		<div>
 			<Header />
-			{JSON.stringify(allAuthors)}
 			<Container className='border border-primary'>
 				<Row className='my-3'>
 					<AddCourseTitle

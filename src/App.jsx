@@ -30,8 +30,6 @@ function App() {
 	};
 
 	const dispatch = useDispatch();
-	const courses = useSelector((state) => state.courses);
-	const authors = useSelector((state) => state.authors);
 
 	const loadCourses = useCallback(async () => {
 		try {
@@ -58,7 +56,7 @@ function App() {
 	useEffect(() => {
 		loadCourses();
 		loadAuthors();
-	}, []);
+	}, [loadAuthors, loadCourses]);
 
 	const addCourseHandler = (newCourse) => {
 		dispatch(addCourseAction(newCourse));
@@ -69,19 +67,11 @@ function App() {
 			<Route path='*' element={<Navigate to={AppRoutes.Courses} replace />} />
 			<Route path={AppRoutes.Registration} element={<Registration />} />
 			<Route path={AppRoutes.Login} element={<Login />} />
-			<Route
-				path={AppRoutes.CourseInfo}
-				element={<CourseInfo courses={courses} />}
-			/>
-			<Route
-				path={AppRoutes.Courses}
-				element={<Courses coursesList={courses} authorsList={authors} />}
-			/>
+			<Route path={AppRoutes.CourseInfo} element={<CourseInfo />} />
+			<Route path={AppRoutes.Courses} element={<Courses />} />
 			<Route
 				path={AppRoutes.CreateCourse}
-				element={
-					<CreateCourse authorsList={authors} onCourseAdd={addCourseHandler} />
-				}
+				element={<CreateCourse onCourseAdd={addCourseHandler} />}
 			/>
 		</Routes>
 	);

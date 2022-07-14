@@ -8,10 +8,11 @@ import {
 import { Card, Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../../../../common';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteCourseAction } from '../../../../store/courses/reducer';
 
-const CourseCard = ({ course, authors }) => {
+const CourseCard = ({ course }) => {
+	const authors = useSelector((state) => state.authors);
 	const { id, title, description, duration, creationDate } = course;
 	const { t } = useTranslation();
 	const dispatch = useDispatch();

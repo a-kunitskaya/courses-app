@@ -6,12 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import { Header } from '../index';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
-const Courses = ({ coursesList, authorsList }) => {
+const Courses = () => {
+	const courses = useSelector((state) => state.courses);
+	const authors = useSelector((state) => state.authors);
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 	const [searchResults, setSearchResults] = useState([]);
-
 	const onSearchHandler = (foundCourses) => {
 		if (foundCourses.length) setSearchResults(foundCourses);
 	};
@@ -23,7 +25,7 @@ const Courses = ({ coursesList, authorsList }) => {
 			<Header />
 			<Container className='border border-primary'>
 				<Stack direction='horizontal' gap={3}>
-					<SearchBar coursesList={coursesList} onSearch={onSearchHandler} />
+					<SearchBar onSearch={onSearchHandler} />
 					<div className='ms-auto'>
 						<Button
 							text={t('courses.addNewCourseBtn')}
@@ -32,8 +34,7 @@ const Courses = ({ coursesList, authorsList }) => {
 					</div>
 				</Stack>
 				<CourseCardsList
-					courses={searchResults.length ? searchResults : coursesList}
-					authors={authorsList}
+					courses={searchResults.length ? searchResults : courses}
 				/>
 			</Container>
 		</>

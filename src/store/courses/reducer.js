@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import courses from '../../components/Courses/Courses';
 
 const coursesSlice = createSlice({
 	name: 'courses',
 	initialState: [],
 	reducers: {
 		addCourseAction(state, action) {
+			console.log('id', action.payload.id);
 			state.push(action.payload);
 		},
 		setCoursesAction(state, action) {

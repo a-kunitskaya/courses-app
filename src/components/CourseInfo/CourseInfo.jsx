@@ -4,8 +4,11 @@ import { LOCALES } from '../../constants';
 import { formatCreationDate, getCourseDuration } from '../../helpers';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
-const CourseInfo = ({ courses }) => {
+const CourseInfo = () => {
+	//for some reason 'courses' is empty here. But this same array is not empty in 'Courses.jsx'. Why?
+	const courses = useSelector((state) => state.courses);
 	const { t } = useTranslation();
 	const { courseId } = useParams();
 	const course = courses.find(({ id }) => id === courseId);
