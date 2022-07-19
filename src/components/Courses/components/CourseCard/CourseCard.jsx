@@ -52,8 +52,8 @@ const CourseCard = ({ course }) => {
 								</Card.Text>
 							);
 						})}
-						<Button text='Delete' onClick={onDeleteHandler} />
-						<Button text='Update' />
+						<Button text={t('courses.deleteBtn')} onClick={onDeleteHandler} />
+						<Button text={t('courses.updateBtn')} />
 					</Col>
 				</Row>
 			</Card.Body>

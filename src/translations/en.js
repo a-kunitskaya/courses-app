@@ -55,6 +55,8 @@ const en = {
 			placeholder: 'Enter course name...',
 			submitButton: 'Search',
 		},
+		deleteBtn: 'Delete',
+		updateBtn: 'Update',
 	},
 	createCourse: {
 		courseAuthors: 'Course authors',

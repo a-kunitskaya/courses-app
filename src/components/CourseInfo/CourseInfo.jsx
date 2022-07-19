@@ -12,6 +12,7 @@ const CourseInfo = () => {
 	const { t } = useTranslation();
 	const { courseId } = useParams();
 	const course = courses.find(({ id }) => id === courseId);
+	if (!course) return null;
 
 	const { id, title, description, duration, authors, creationDate } = course;
 
