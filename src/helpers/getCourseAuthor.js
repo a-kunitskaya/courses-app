@@ -1,4 +1,9 @@
-const getCourseAuthor = ({ course, authors }) =>
-	course.authors.map((author) => authors.find(({ id }) => id === author).name);
+const getCourseAuthor = ({ course, authors }) => {
+	if (!course.authors.length || !authors.length) return [];
+	return course.authors.map((courseAuthor) => {
+		const author = authors.find((a) => a.id === courseAuthor);
+		return author ? author.name : '-';
+	});
+};
 
 export default getCourseAuthor;

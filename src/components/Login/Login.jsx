@@ -2,15 +2,20 @@ import { Button, Input } from '../../common';
 import { Alert, Container, Form, FormGroup } from 'react-bootstrap';
 import { Header } from '../index';
 import { useState } from 'react';
-import axios from 'axios';
+
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { login } from '../../services';
+
+import { loginAction } from '../../store/user/reducer';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
 	const { t } = useTranslation();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
+	const dispatch = useDispatch();
 
 	const navigate = useNavigate();
 
@@ -19,13 +24,16 @@ const Login = () => {
 
 	const logIn = async (user) => {
 		try {
-			const { data } = await axios.post('/login', user);
+			const { data } = await login(user);
+			dispatch(
+				loginAction({
+					name: data.user.name,
+					email: data.user.email,
+					token: data.result,
+				})
+			);
+
 			localStorage.setItem('token', data.result);
-
-			// Uladzislau, I'm not not sure if localStorage is a good place to store username in,
-			// where should I store it instead?
-			localStorage.setItem('username', data.user.name);
-
 			navigate('/courses');
 		} catch (err) {
 			setError(err.message);

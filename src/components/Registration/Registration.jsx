@@ -3,7 +3,7 @@ import { Alert, Container, Form, FormGroup } from 'react-bootstrap';
 import { Header } from '../index';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { register } from '../../services';
 import { useTranslation } from 'react-i18next';
 
 const Registration = () => {
@@ -21,7 +21,7 @@ const Registration = () => {
 
 	const createUser = async (user) => {
 		try {
-			await axios.post('/register', user);
+			await register(user);
 			navigate('/login');
 		} catch (err) {
 			setError(err.message);
