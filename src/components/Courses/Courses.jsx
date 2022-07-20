@@ -7,16 +7,18 @@ import { Header } from '../index';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { ROLES } from '../../constants';
 
 const Courses = () => {
 	const courses = useSelector((state) => state.courses);
-	const authors = useSelector((state) => state.authors);
 	const navigate = useNavigate();
 	const { t } = useTranslation();
+	const user = useSelector((state) => state.user);
 	const [searchResults, setSearchResults] = useState([]);
 	const onSearchHandler = (foundCourses) => {
 		if (foundCourses.length) setSearchResults(foundCourses);
 	};
+	const isAdminUser = user.role === ROLES.ADMIN;
 
 	const addNewCourseHandler = () => navigate('/courses/add');
 
@@ -27,10 +29,12 @@ const Courses = () => {
 				<Stack direction='horizontal' gap={3}>
 					<SearchBar onSearch={onSearchHandler} />
 					<div className='ms-auto'>
-						<Button
-							text={t('courses.addNewCourseBtn')}
-							onClick={addNewCourseHandler}
-						/>
+						{isAdminUser && (
+							<Button
+								text={t('courses.addNewCourseBtn')}
+								onClick={addNewCourseHandler}
+							/>
+						)}
 					</div>
 				</Stack>
 				<CourseCardsList

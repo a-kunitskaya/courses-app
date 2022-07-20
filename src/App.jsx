@@ -13,15 +13,15 @@ import axios from 'axios';
 import './i18n';
 import { BASE_BACKEND_URL } from './constants';
 import { useCallback, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { getAllAuthors, getAllCourses } from './services';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllAuthors, getAllCourses, getUser } from './services';
 import { addCourseAction, setCoursesAction } from './store/courses/reducer';
 import { setAuthorsAction } from './store/authors/reducer';
 import { ROUTES } from './routes';
+import { setUser } from './store/user/reducer';
 
 function App() {
 	axios.defaults.baseURL = BASE_BACKEND_URL;
-
 	const dispatch = useDispatch();
 	const loadCourses = useCallback(async () => {
 		try {
@@ -45,10 +45,20 @@ function App() {
 		}
 	}, []);
 
-	useEffect(() => {
-		loadCourses();
-		loadAuthors();
+	const loadUser = useCallback(async () => {
+		const token = localStorage.getItem('token');
+		console.log('token', token);
+		if (token) dispatch(setUser());
 	}, []);
+
+	useEffect(() => {
+		async function fetchData() {
+			await loadCourses();
+			await loadAuthors();
+			await loadUser();
+		}
+		fetchData();
+	}, [dispatch]);
 
 	const addCourseHandler = (newCourse) => {
 		dispatch(addCourseAction(newCourse));
