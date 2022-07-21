@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { v1 as uuid } from 'uuid';
 
 import {
@@ -11,19 +11,41 @@ import {
 } from './components';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import { Header } from '../index';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addAuthorsAction } from '../../store/authors/reducer';
 import { addAuthor } from '../../services';
+import { getCourseAuthor } from '../../helpers';
 
 const CourseForm = ({ onCourseAdd }) => {
 	const dispatch = useDispatch();
+	const { courseId } = useParams();
+
 	const [courseAuthors, setCourseAuthors] = useState([]);
 	const allAuthors = useSelector((state) => state.authors);
 	const [availableAuthors, setAvailableAuthors] = useState(allAuthors);
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [duration, setDuration] = useState(0);
+
+	const courses = useSelector((state) => state.courses);
+
+	useEffect(() => {
+		if (courseId) {
+			const course = courses.find((course) => course.id === courseId);
+			setTitle(course.title);
+			setDescription(course.description);
+			const crsAuthors = course.authors.map((courseAuthor) =>
+				allAuthors.find((a) => a.id === courseAuthor)
+			);
+			setCourseAuthors(crsAuthors);
+			setDuration(course.duration);
+			const restOfAuthors = availableAuthors.filter(
+				(author) => !course.authors.find((id) => id === author.id)
+			);
+			setAvailableAuthors(restOfAuthors);
+		}
+	}, [useState]);
 
 	const navigate = useNavigate();
 
@@ -77,10 +99,14 @@ const CourseForm = ({ onCourseAdd }) => {
 					<AddCourseTitle
 						onAddTitle={onAddTitleHandler}
 						onCreateCourse={onCreateCourseHandler}
+						title={title}
 					/>
 				</Row>
 				<Row>
-					<AddCourseDescription onAddDescription={onAddDescriptionHandler} />
+					<AddCourseDescription
+						onAddDescription={onAddDescriptionHandler}
+						description={description}
+					/>
 				</Row>
 				<Card border='border border-dark mb-5'>
 					<Card.Body>
@@ -97,7 +123,10 @@ const CourseForm = ({ onCourseAdd }) => {
 						</Row>
 						<Row>
 							<Col>
-								<AddCourseDuration onAddDuration={onAddDurationHandler} />
+								<AddCourseDuration
+									onAddDuration={onAddDurationHandler}
+									duration={duration}
+								/>
 							</Col>
 							<Col>
 								<CourseAuthors

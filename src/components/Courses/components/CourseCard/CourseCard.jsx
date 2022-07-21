@@ -33,7 +33,7 @@ const CourseCard = ({ course }) => {
 
 	const onUpdateHandler = async (event) => {
 		event.preventDefault();
-		navigate(ROUTES.UPDATE_COURSE);
+		navigate(ROUTES.UPDATE_COURSE.replace(':courseId', id));
 	};
 
 	const cardItems = [

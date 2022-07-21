@@ -4,7 +4,7 @@ import { ADD_COURSE_DESCRIPTION_MIN_CHARS_NUM } from '../../../../constants';
 import { Col } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-const AddCourseDescription = ({ onAddDescription }) => {
+const AddCourseDescription = ({ onAddDescription, description }) => {
 	const { t } = useTranslation();
 	const addDescriptionHandler = (event) => onAddDescription(event.target.value);
 	return (
@@ -16,6 +16,7 @@ const AddCourseDescription = ({ onAddDescription }) => {
 				rows={5}
 				className='border border-warning'
 				onChange={addDescriptionHandler}
+				value={description}
 			/>
 		</Col>
 	);
