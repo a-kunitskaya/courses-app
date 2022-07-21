@@ -14,21 +14,28 @@ import { Header } from '../index';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addAuthorsAction } from '../../store/authors/reducer';
+import { addAuthor } from '../../services';
 
-const CreateCourse = ({ onCourseAdd }) => {
+const CourseForm = ({ onCourseAdd }) => {
 	const dispatch = useDispatch();
 	const [courseAuthors, setCourseAuthors] = useState([]);
 	const allAuthors = useSelector((state) => state.authors);
 	const [availableAuthors, setAvailableAuthors] = useState(allAuthors);
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
-	const [duration, setDuration] = useState('');
+	const [duration, setDuration] = useState(0);
 
 	const navigate = useNavigate();
 
-	const onAddAuthorHandler = (author) => {
-		dispatch(addAuthorsAction(author));
-		setAvailableAuthors((prevState) => [author, ...prevState]);
+	const onAddAuthorHandler = async (author) => {
+		const token = localStorage.getItem('token');
+		if (token) {
+			const {
+				data: { result },
+			} = await addAuthor(author, token);
+			dispatch(addAuthorsAction(result));
+			setAvailableAuthors((prevState) => [author, ...prevState]);
+		}
 	};
 
 	const onAddCourseAuthorHandler = (author) => {
@@ -48,11 +55,10 @@ const CreateCourse = ({ onCourseAdd }) => {
 
 	const onAddTitleHandler = (title) => setTitle(title);
 	const onAddDescriptionHandler = (description) => setDescription(description);
-	const onAddDurationHandler = (duration) => setDuration(duration);
+	const onAddDurationHandler = (duration) => setDuration(Number(duration));
 	const onCreateCourseHandler = (event) => {
 		event.preventDefault();
 		const newCourse = {
-			id: uuid(),
 			title,
 			description,
 			creationDate: new Date().toString(),
@@ -106,4 +112,4 @@ const CreateCourse = ({ onCourseAdd }) => {
 		</div>
 	);
 };
-export default CreateCourse;
+export default CourseForm;

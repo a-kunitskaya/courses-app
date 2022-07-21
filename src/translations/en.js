@@ -51,6 +51,7 @@ const en = {
 		created: 'Created',
 		duration: 'Duration',
 		addNewCourseBtn: 'Add new course',
+		showCourseBtn: 'Show course',
 		searchInput: {
 			placeholder: 'Enter course name...',
 			submitButton: 'Search',

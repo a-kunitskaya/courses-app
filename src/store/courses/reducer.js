@@ -1,4 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { deleteCourse } from '../../services';
+
+export const deleteCourseById = createAsyncThunk(
+	'courses/deleteCourseById',
+	async (courseId, thunkAPI) => {
+		console.log('in thunk deleteCourse', courseId);
+		const token = localStorage.getItem('token');
+		const response = await deleteCourse(courseId, token);
+		console.log('result thunk delete course', response);
+		return response.data.result;
+	}
+);
 
 const coursesSlice = createSlice({
 	name: 'courses',
@@ -14,6 +26,17 @@ const coursesSlice = createSlice({
 			const courseId = action.payload;
 			return state.filter((course) => course.id !== courseId);
 		},
+	},
+	extraReducers: (builder) => {
+		builder.addCase(deleteCourseById.fulfilled, (state, action) => {
+			console.log('yes delete course');
+		});
+		builder.addCase(deleteCourseById.pending, (state, action) => {
+			console.log('pending delete course');
+		});
+		builder.addCase(deleteCourseById.rejected, (state, action) => {
+			console.log('no delete course');
+		});
 	},
 });
 

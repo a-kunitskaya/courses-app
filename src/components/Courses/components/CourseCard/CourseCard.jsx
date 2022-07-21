@@ -4,22 +4,36 @@ import {
 	formatCreationDate,
 	getCourseAuthor,
 	getCourseDuration,
+	isAdminUser,
 } from '../../../../helpers';
 import { Card, Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../../../../common';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteCourseAction } from '../../../../store/courses/reducer';
+import {
+	deleteCourseAction,
+	deleteCourseById,
+} from '../../../../store/courses/reducer';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../../../routes';
 
 const CourseCard = ({ course }) => {
 	const authors = useSelector((state) => state.authors);
 	const { id, title, description, duration, creationDate } = course;
 	const { t } = useTranslation();
 	const dispatch = useDispatch();
+	const user = useSelector((state) => state.user);
+	const navigate = useNavigate();
 
 	const onDeleteHandler = async (event) => {
 		event.preventDefault();
+		await dispatch(deleteCourseById(id));
 		dispatch(deleteCourseAction(id));
+	};
+
+	const onUpdateHandler = async (event) => {
+		event.preventDefault();
+		navigate(ROUTES.UPDATE_COURSE);
 	};
 
 	const cardItems = [
@@ -52,8 +66,19 @@ const CourseCard = ({ course }) => {
 								</Card.Text>
 							);
 						})}
-						<Button text={t('courses.deleteBtn')} onClick={onDeleteHandler} />
-						<Button text={t('courses.updateBtn')} />
+						<Button text={t('courses.showCourseBtn')} />
+						{isAdminUser(user) && (
+							<>
+								<Button
+									text={t('courses.deleteBtn')}
+									onClick={onDeleteHandler}
+								/>
+								<Button
+									text={t('courses.updateBtn')}
+									onClick={onUpdateHandler}
+								/>
+							</>
+						)}
 					</Col>
 				</Row>
 			</Card.Body>

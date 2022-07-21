@@ -3,8 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {
 	CourseInfo,
 	Courses,
-	CreateCourse,
+	CourseForm,
 	Login,
+	PrivateRoute,
 	Registration,
 } from './components';
 
@@ -13,8 +14,8 @@ import axios from 'axios';
 import './i18n';
 import { BASE_BACKEND_URL } from './constants';
 import { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllAuthors, getAllCourses, getUser } from './services';
+import { useDispatch } from 'react-redux';
+import { addCourse, getAllAuthors, getAllCourses } from './services';
 import { addCourseAction, setCoursesAction } from './store/courses/reducer';
 import { setAuthorsAction } from './store/authors/reducer';
 import { ROUTES } from './routes';
@@ -22,6 +23,7 @@ import { setUser } from './store/user/reducer';
 
 function App() {
 	axios.defaults.baseURL = BASE_BACKEND_URL;
+
 	const dispatch = useDispatch();
 	const loadCourses = useCallback(async () => {
 		try {
@@ -60,8 +62,18 @@ function App() {
 		fetchData();
 	}, [dispatch]);
 
-	const addCourseHandler = (newCourse) => {
-		dispatch(addCourseAction(newCourse));
+	const addCourseHandler = async (newCourse) => {
+		const token = localStorage.getItem('token');
+		if (token) {
+			try {
+				const {
+					data: { result },
+				} = await addCourse(newCourse, token);
+				dispatch(addCourseAction(result));
+			} catch (e) {
+				console.error('failed to add a course', e);
+			}
+		}
 	};
 
 	return (
@@ -74,10 +86,16 @@ function App() {
 			<Route path={ROUTES.LOGIN} element={<Login />} />
 			<Route path={ROUTES.COURSE_INFO} element={<CourseInfo />} />
 			<Route path={ROUTES.COURSES} element={<Courses />} />
-			<Route
-				path={ROUTES.CREATE_COURSE}
-				element={<CreateCourse onCourseAdd={addCourseHandler} />}
-			/>
+			<Route element={<PrivateRoute />}>
+				<Route
+					path={ROUTES.CREATE_COURSE}
+					element={<CourseForm onCourseAdd={addCourseHandler} />}
+				/>
+				<Route
+					path={ROUTES.UPDATE_COURSE}
+					element={<CourseForm onCourseAdd={addCourseHandler} />}
+				/>
+			</Route>
 		</Routes>
 	);
 }
