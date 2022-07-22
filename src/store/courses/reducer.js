@@ -26,6 +26,13 @@ const coursesSlice = createSlice({
 			const courseId = action.payload;
 			return state.filter((course) => course.id !== courseId);
 		},
+		updateCourseAction(state, action) {
+			console.log('in update action', JSON.stringify(state));
+			const updatedCourse = action.payload;
+			return state.map((course) =>
+				course.id === updatedCourse.id ? updatedCourse : course
+			);
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(deleteCourseById.fulfilled, (state, action) => {
@@ -40,6 +47,10 @@ const coursesSlice = createSlice({
 	},
 });
 
-export const { addCourseAction, setCoursesAction, deleteCourseAction } =
-	coursesSlice.actions;
+export const {
+	addCourseAction,
+	setCoursesAction,
+	deleteCourseAction,
+	updateCourseAction,
+} = coursesSlice.actions;
 export default coursesSlice.reducer;

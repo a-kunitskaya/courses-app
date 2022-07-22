@@ -15,14 +15,24 @@ import './i18n';
 import { BASE_BACKEND_URL } from './constants';
 import { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { addCourse, getAllAuthors, getAllCourses } from './services';
-import { addCourseAction, setCoursesAction } from './store/courses/reducer';
+import {
+	addCourse,
+	getAllAuthors,
+	getAllCourses,
+	updateCourse,
+} from './services';
+import {
+	addCourseAction,
+	setCoursesAction,
+	updateCourseAction,
+} from './store/courses/reducer';
 import { setAuthorsAction } from './store/authors/reducer';
 import { ROUTES } from './routes';
 import { setUser } from './store/user/reducer';
 
 function App() {
 	axios.defaults.baseURL = BASE_BACKEND_URL;
+	const token = localStorage.getItem('token');
 
 	const dispatch = useDispatch();
 	const loadCourses = useCallback(async () => {
@@ -63,7 +73,7 @@ function App() {
 	}, [dispatch]);
 
 	const addCourseHandler = async (newCourse) => {
-		const token = localStorage.getItem('token');
+		console.log('in addCourseHandler');
 		if (token) {
 			try {
 				const {
@@ -71,7 +81,22 @@ function App() {
 				} = await addCourse(newCourse, token);
 				dispatch(addCourseAction(result));
 			} catch (e) {
-				console.error('failed to add a course', e);
+				console.error('failed to add a course', e, newCourse);
+			}
+		}
+	};
+
+	const updateCourseHandler = async (courseId, course) => {
+		console.log('in updateCourseHandler');
+		if (token) {
+			try {
+				const {
+					data: { result },
+				} = await updateCourse(courseId, course, token);
+				console.log('api result', result);
+				dispatch(updateCourseAction(result));
+			} catch (e) {
+				console.error('failed to update a course', e, course);
 			}
 		}
 	};
@@ -93,7 +118,12 @@ function App() {
 				/>
 				<Route
 					path={ROUTES.UPDATE_COURSE}
-					element={<CourseForm onCourseAdd={addCourseHandler} />}
+					element={
+						<CourseForm
+							onCourseAdd={addCourseHandler}
+							onCourseUpdate={updateCourseHandler}
+						/>
+					}
 				/>
 			</Route>
 		</Routes>

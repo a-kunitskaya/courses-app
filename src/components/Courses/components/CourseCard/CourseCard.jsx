@@ -36,6 +36,11 @@ const CourseCard = ({ course }) => {
 		navigate(ROUTES.UPDATE_COURSE.replace(':courseId', id));
 	};
 
+	const onShowCourseHandler = (event) => {
+		event.preventDefault();
+		navigate(ROUTES.COURSE_INFO.replace(':courseId', id));
+	};
+
 	const cardItems = [
 		{
 			label: t('courses.authors'),
@@ -66,7 +71,10 @@ const CourseCard = ({ course }) => {
 								</Card.Text>
 							);
 						})}
-						<Button text={t('courses.showCourseBtn')} />
+						<Button
+							text={t('courses.showCourseBtn')}
+							onClick={onShowCourseHandler}
+						/>
 						{isAdminUser(user) && (
 							<>
 								<Button

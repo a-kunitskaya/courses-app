@@ -17,7 +17,7 @@ import { addAuthorsAction } from '../../store/authors/reducer';
 import { addAuthor } from '../../services';
 import { getCourseAuthor } from '../../helpers';
 
-const CourseForm = ({ onCourseAdd }) => {
+const CourseForm = ({ onCourseAdd, onCourseUpdate }) => {
 	const dispatch = useDispatch();
 	const { courseId } = useParams();
 
@@ -78,7 +78,7 @@ const CourseForm = ({ onCourseAdd }) => {
 	const onAddTitleHandler = (title) => setTitle(title);
 	const onAddDescriptionHandler = (description) => setDescription(description);
 	const onAddDurationHandler = (duration) => setDuration(Number(duration));
-	const onCreateCourseHandler = (event) => {
+	const onCreateUpdateCourseHandler = (event) => {
 		event.preventDefault();
 		const newCourse = {
 			title,
@@ -87,7 +87,11 @@ const CourseForm = ({ onCourseAdd }) => {
 			duration,
 			authors: courseAuthors.map((author) => author.id),
 		};
-		onCourseAdd(newCourse);
+		if (courseId) {
+			onCourseUpdate(courseId, newCourse);
+		} else {
+			onCourseAdd(newCourse);
+		}
 		navigate('/courses');
 	};
 
@@ -98,7 +102,8 @@ const CourseForm = ({ onCourseAdd }) => {
 				<Row className='my-3'>
 					<AddCourseTitle
 						onAddTitle={onAddTitleHandler}
-						onCreateCourse={onCreateCourseHandler}
+						onCreateUpdateCourse={onCreateUpdateCourseHandler}
+						courseId={courseId}
 						title={title}
 					/>
 				</Row>
