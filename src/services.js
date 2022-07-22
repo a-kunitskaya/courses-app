@@ -18,7 +18,6 @@ export const addAuthor = (author, token) =>
 	axios.post('/authors/add', author, { headers: { Authorization: token } });
 
 export const updateCourse = (courseId, course, token) => {
-	console.log('updating course...', courseId, course);
 	return axios.put(`/courses/${courseId}`, course, {
 		headers: { Authorization: token },
 	});

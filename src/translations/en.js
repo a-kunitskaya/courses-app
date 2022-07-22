@@ -66,6 +66,7 @@ const en = {
 			placeholder: 'Enter title...',
 		},
 		createCourseBtn: 'Create course',
+		updateCourseBtn: 'Update course',
 		createAuthorBtn: 'Create author',
 		addAuthorBtn: 'Add author',
 		deleteAuthorBtn: 'Delete author',

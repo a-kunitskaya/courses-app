@@ -1,9 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {
+	CourseForm,
 	CourseInfo,
 	Courses,
-	CourseForm,
 	Login,
 	PrivateRoute,
 	Registration,
@@ -59,7 +59,6 @@ function App() {
 
 	const loadUser = useCallback(async () => {
 		const token = localStorage.getItem('token');
-		console.log('token', token);
 		if (token) dispatch(setUser());
 	}, []);
 
@@ -73,7 +72,6 @@ function App() {
 	}, [dispatch]);
 
 	const addCourseHandler = async (newCourse) => {
-		console.log('in addCourseHandler');
 		if (token) {
 			try {
 				const {
@@ -87,13 +85,11 @@ function App() {
 	};
 
 	const updateCourseHandler = async (courseId, course) => {
-		console.log('in updateCourseHandler');
 		if (token) {
 			try {
 				const {
 					data: { result },
 				} = await updateCourse(courseId, course, token);
-				console.log('api result', result);
 				dispatch(updateCourseAction(result));
 			} catch (e) {
 				console.error('failed to update a course', e, course);

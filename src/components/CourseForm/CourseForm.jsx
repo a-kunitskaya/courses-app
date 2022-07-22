@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { v1 as uuid } from 'uuid';
 
 import {
 	AddAuthor,
@@ -11,11 +10,10 @@ import {
 } from './components';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import { Header } from '../index';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addAuthorsAction } from '../../store/authors/reducer';
 import { addAuthor } from '../../services';
-import { getCourseAuthor } from '../../helpers';
 
 const CourseForm = ({ onCourseAdd, onCourseUpdate }) => {
 	const dispatch = useDispatch();

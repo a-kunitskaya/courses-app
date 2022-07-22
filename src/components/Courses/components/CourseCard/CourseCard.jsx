@@ -10,10 +10,7 @@ import { Card, Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../../../../common';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	deleteCourseAction,
-	deleteCourseById,
-} from '../../../../store/courses/reducer';
+import { deleteCourseById } from '../../../../store/courses/reducer';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../../routes';
 
@@ -28,7 +25,6 @@ const CourseCard = ({ course }) => {
 	const onDeleteHandler = async (event) => {
 		event.preventDefault();
 		await dispatch(deleteCourseById(id));
-		dispatch(deleteCourseAction(id));
 	};
 
 	const onUpdateHandler = async (event) => {
