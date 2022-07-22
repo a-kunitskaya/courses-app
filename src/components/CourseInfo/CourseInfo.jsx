@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 const CourseInfo = () => {
-	//for some reason 'courses' is empty here. But this same array is not empty in 'Courses.jsx'. Why?
 	const courses = useSelector((state) => state.courses);
 	const { t } = useTranslation();
 	const { courseId } = useParams();

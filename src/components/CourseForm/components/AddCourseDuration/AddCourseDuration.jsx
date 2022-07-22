@@ -1,20 +1,12 @@
-import { useState } from 'react';
-
 import { Input } from '../../../../common';
 
 import { getCourseDuration } from '../../../../helpers';
 import { Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-const AddCourseDuration = ({ onAddDuration }) => {
+const AddCourseDuration = ({ onAddDuration, duration }) => {
 	const { t } = useTranslation();
-	const [durationInput, setDurationInput] = useState('');
-
-	const durationInputHandler = (event) => {
-		event.preventDefault();
-		setDurationInput(event.target.value);
-		onAddDuration(durationInput);
-	};
+	const durationInputHandler = (event) => onAddDuration(event.target.value);
 
 	return (
 		<>
@@ -25,11 +17,11 @@ const AddCourseDuration = ({ onAddDuration }) => {
 				type='number'
 				min={1}
 				onChange={durationInputHandler}
-				value={durationInput}
+				value={duration}
 				className='border border-warning'
 			/>
 			<Card.Text className='display-6 my-3'>
-				{t('createCourse.durationHeading')}: {getCourseDuration(durationInput)}
+				{t('createCourse.durationHeading')}: {getCourseDuration(duration)}
 			</Card.Text>
 		</>
 	);
