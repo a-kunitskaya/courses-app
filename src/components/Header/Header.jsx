@@ -5,6 +5,8 @@ import { Routes, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { logoutAction } from '../../store/user/reducer';
 import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../services';
+import { getToken } from '../../helpers';
 
 function Header() {
 	const { pathname } = useLocation();
@@ -14,7 +16,9 @@ function Header() {
 	const dispatch = useDispatch();
 	const logoutHandler = () => {
 		dispatch(logoutAction());
-		localStorage.removeItem('token');
+		const token = getToken();
+		if (token) logout(token).then(() => localStorage.removeItem('token'));
+
 		navigate('/login');
 	};
 

@@ -7,6 +7,7 @@ const Textarea = ({
 	minlength,
 	rows,
 	className,
+	value,
 }) => (
 	<Form>
 		<Form.Group>
@@ -19,6 +20,7 @@ const Textarea = ({
 					placeholder={placeholderText}
 					onChange={onChange}
 					className={className}
+					value={value}
 				/>
 			</Form.Label>
 		</Form.Group>

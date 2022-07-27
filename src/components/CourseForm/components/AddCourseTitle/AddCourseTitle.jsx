@@ -3,7 +3,12 @@ import { Button, Input } from '../../../../common';
 import { Col, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-const AddCourseTitle = ({ onAddTitle, onCreateCourse }) => {
+const AddCourseTitle = ({
+	title,
+	onAddTitle,
+	onCreateUpdateCourse,
+	courseId,
+}) => {
 	const { t } = useTranslation();
 	const addTitleHandler = (event) => onAddTitle(event.target.value);
 
@@ -16,15 +21,23 @@ const AddCourseTitle = ({ onAddTitle, onCreateCourse }) => {
 						placeholderText={t('createCourse.inputTitle.placeholder')}
 						className='border border-dark'
 						onChange={addTitleHandler}
+						value={title}
 					/>
 				</Form.Group>
 			</Col>
 			<Col />
 			<Col md='auto'>
-				<Button
-					text={t('createCourse.createCourseBtn')}
-					onClick={onCreateCourse}
-				/>
+				{!courseId ? (
+					<Button
+						text={t('createCourse.createCourseBtn')}
+						onClick={onCreateUpdateCourse}
+					/>
+				) : (
+					<Button
+						text={t('createCourse.updateCourseBtn')}
+						onClick={onCreateUpdateCourse}
+					/>
+				)}
 			</Col>
 		</Form>
 	);

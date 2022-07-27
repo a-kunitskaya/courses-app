@@ -1,10 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {
+	CourseForm,
 	CourseInfo,
 	Courses,
-	CreateCourse,
 	Login,
+	PrivateRoute,
 	Registration,
 } from './components';
 
@@ -14,13 +15,25 @@ import './i18n';
 import { BASE_BACKEND_URL } from './constants';
 import { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getAllAuthors, getAllCourses } from './services';
-import { addCourseAction, setCoursesAction } from './store/courses/reducer';
+import {
+	addCourse,
+	getAllAuthors,
+	getAllCourses,
+	updateCourse,
+} from './services';
+import {
+	addCourseAction,
+	setCoursesAction,
+	updateCourseAction,
+} from './store/courses/reducer';
 import { setAuthorsAction } from './store/authors/reducer';
 import { ROUTES } from './routes';
+import { setUser } from './store/user/reducer';
+import { getToken } from './helpers';
 
 function App() {
 	axios.defaults.baseURL = BASE_BACKEND_URL;
+	const token = getToken();
 
 	const dispatch = useDispatch();
 	const loadCourses = useCallback(async () => {
@@ -45,13 +58,41 @@ function App() {
 		}
 	}, []);
 
+	const loadUser = useCallback(async () => {
+		const token = getToken();
+		if (token) dispatch(setUser());
+	}, []);
+
 	useEffect(() => {
 		loadCourses();
 		loadAuthors();
-	}, []);
+		loadUser();
+	}, [dispatch]);
 
-	const addCourseHandler = (newCourse) => {
-		dispatch(addCourseAction(newCourse));
+	const addCourseHandler = async (newCourse) => {
+		if (token) {
+			try {
+				const {
+					data: { result },
+				} = await addCourse(newCourse, token);
+				dispatch(addCourseAction(result));
+			} catch (e) {
+				console.error('failed to add a course', e, newCourse);
+			}
+		}
+	};
+
+	const updateCourseHandler = async (courseId, course) => {
+		if (token) {
+			try {
+				const {
+					data: { result },
+				} = await updateCourse(courseId, course, token);
+				dispatch(updateCourseAction(result));
+			} catch (e) {
+				console.error('failed to update a course', e, course);
+			}
+		}
 	};
 
 	return (
@@ -64,10 +105,21 @@ function App() {
 			<Route path={ROUTES.LOGIN} element={<Login />} />
 			<Route path={ROUTES.COURSE_INFO} element={<CourseInfo />} />
 			<Route path={ROUTES.COURSES} element={<Courses />} />
-			<Route
-				path={ROUTES.CREATE_COURSE}
-				element={<CreateCourse onCourseAdd={addCourseHandler} />}
-			/>
+			<Route element={<PrivateRoute />}>
+				<Route
+					path={ROUTES.CREATE_COURSE}
+					element={<CourseForm onCourseAdd={addCourseHandler} />}
+				/>
+				<Route
+					path={ROUTES.UPDATE_COURSE}
+					element={
+						<CourseForm
+							onCourseAdd={addCourseHandler}
+							onCourseUpdate={updateCourseHandler}
+						/>
+					}
+				/>
+			</Route>
 		</Routes>
 	);
 }
