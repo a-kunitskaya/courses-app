@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { deleteCourse } from '../../services';
+import { getToken } from '../../helpers';
 
 export const deleteCourseById = createAsyncThunk(
 	'courses/deleteCourseById',
 	async (courseId, thunkAPI) => {
-		const token = localStorage.getItem('token');
+		const token = getToken();
 		await deleteCourse(courseId, token);
 		return courseId;
 	}

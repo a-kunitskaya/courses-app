@@ -27,13 +27,12 @@ const AddCourseTitle = ({
 			</Col>
 			<Col />
 			<Col md='auto'>
-				{!courseId && (
+				{!courseId ? (
 					<Button
 						text={t('createCourse.createCourseBtn')}
 						onClick={onCreateUpdateCourse}
 					/>
-				)}
-				{courseId && (
+				) : (
 					<Button
 						text={t('createCourse.updateCourseBtn')}
 						onClick={onCreateUpdateCourse}

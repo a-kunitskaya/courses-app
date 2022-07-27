@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getUser } from '../../services';
+import { getToken } from '../../helpers';
 
 export const setUser = createAsyncThunk('user/setUser', async (thunkAPI) => {
-	const token = localStorage.getItem('token');
+	const token = getToken();
 	if (token) {
 		const response = await getUser(token);
 		return response.data.result;

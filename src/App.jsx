@@ -29,10 +29,11 @@ import {
 import { setAuthorsAction } from './store/authors/reducer';
 import { ROUTES } from './routes';
 import { setUser } from './store/user/reducer';
+import { getToken } from './helpers';
 
 function App() {
 	axios.defaults.baseURL = BASE_BACKEND_URL;
-	const token = localStorage.getItem('token');
+	const token = getToken();
 
 	const dispatch = useDispatch();
 	const loadCourses = useCallback(async () => {
@@ -58,17 +59,14 @@ function App() {
 	}, []);
 
 	const loadUser = useCallback(async () => {
-		const token = localStorage.getItem('token');
+		const token = getToken();
 		if (token) dispatch(setUser());
 	}, []);
 
 	useEffect(() => {
-		async function fetchData() {
-			await loadCourses();
-			await loadAuthors();
-			await loadUser();
-		}
-		fetchData();
+		loadCourses();
+		loadAuthors();
+		loadUser();
 	}, [dispatch]);
 
 	const addCourseHandler = async (newCourse) => {

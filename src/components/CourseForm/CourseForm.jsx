@@ -14,6 +14,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addAuthorsAction } from '../../store/authors/reducer';
 import { addAuthor } from '../../services';
+import { getToken } from '../../helpers';
 
 const CourseForm = ({ onCourseAdd, onCourseUpdate }) => {
 	const dispatch = useDispatch();
@@ -29,26 +30,26 @@ const CourseForm = ({ onCourseAdd, onCourseUpdate }) => {
 	const courses = useSelector((state) => state.courses);
 
 	useEffect(() => {
-		if (courseId) {
-			const course = courses.find((course) => course.id === courseId);
-			setTitle(course.title);
-			setDescription(course.description);
-			const crsAuthors = course.authors.map((courseAuthor) =>
-				allAuthors.find((a) => a.id === courseAuthor)
-			);
-			setCourseAuthors(crsAuthors);
-			setDuration(course.duration);
-			const restOfAuthors = availableAuthors.filter(
-				(author) => !course.authors.find((id) => id === author.id)
-			);
-			setAvailableAuthors(restOfAuthors);
-		}
-	}, [useState]);
+		if (!courseId) return;
+
+		const course = courses.find((course) => course.id === courseId);
+		setTitle(course.title);
+		setDescription(course.description);
+		const crsAuthors = course.authors.map((courseAuthor) =>
+			allAuthors.find((a) => a.id === courseAuthor)
+		);
+		setCourseAuthors(crsAuthors);
+		setDuration(course.duration);
+		const restOfAuthors = availableAuthors.filter(
+			(author) => !course.authors.find((id) => id === author.id)
+		);
+		setAvailableAuthors(restOfAuthors);
+	}, [courseId, courses, availableAuthors]);
 
 	const navigate = useNavigate();
 
 	const onAddAuthorHandler = async (author) => {
-		const token = localStorage.getItem('token');
+		const token = getToken();
 		if (token) {
 			const {
 				data: { result },
