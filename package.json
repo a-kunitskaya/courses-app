@@ -33,6 +33,12 @@
     "prepare": "husky install",
     "prepublish": "npm run eslint:fix && npm run test:nowatch"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test",
+      "pre-push": "npm run test"
+    }
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
